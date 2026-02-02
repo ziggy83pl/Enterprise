@@ -265,3 +265,53 @@ acceptCookiesBtn.addEventListener('click', () => {
     localStorage.setItem('cookiesAccepted', 'true');
     cookieBanner.classList.remove('show');
 });
+
+// 9. Favicon Animation (Loader)
+const faviconLink = document.querySelector("link[rel~='icon']");
+if (faviconLink) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext('2d');
+    let angle = 0;
+    let intervalId;
+
+    function drawFavicon() {
+        // Tło (zielony kwadrat)
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(0, 0, 32, 32);
+
+        // Litera "E"
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 22px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('E', 16, 17);
+
+        // Spinner (biały łuk)
+        ctx.beginPath();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.arc(16, 16, 13, angle, angle + Math.PI / 2);
+        ctx.stroke();
+
+        angle += 0.4;
+        faviconLink.href = canvas.toDataURL('image/png');
+    }
+
+    // Uruchom animację co 100ms
+    intervalId = setInterval(drawFavicon, 100);
+
+    // Zatrzymaj animację 1.5 sekundy po pełnym załadowaniu strony
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            clearInterval(intervalId);
+            // Rysujemy czystą ikonę bez spinnera na koniec
+            ctx.fillStyle = '#10b981';
+            ctx.fillRect(0, 0, 32, 32);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('E', 16, 17);
+            faviconLink.href = canvas.toDataURL('image/png');
+        }, 1500);
+    });
+}

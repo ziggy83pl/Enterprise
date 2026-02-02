@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         },
         {
             name: "Enterprise",
-            url: "https://ziggy83pl.github.io/Enterprise/", // Poprawiony URL
+            url: "https://ziggy83pl.github.io/Enterprise/",
             img: "https://ziggy83pl.github.io/zasoby/logo/enterprise.webp", 
             title: "Enterprise - Strony WWW"
         },
@@ -41,27 +41,30 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     ];
 
-    const currentUrl = window.location.href.toLowerCase();
+    // Pobieramy aktualną ścieżkę (np. "/Enterprise/index.html")
+    const currentPath = window.location.pathname.toLowerCase();
 
     let html = '';
     projects.forEach(project => {
-        // --- KLUCZOWA ZMIANA: Sprawdzanie czy nazwa lub fragment URL projektu jest w adresie przeglądarki ---
-        const projectSlug = project.name.toLowerCase().replace(/\s/g, ''); // np. "enterprise"
-        const projectUrlPart = project.url.toLowerCase();
+        // Wyciągamy ostatni segment z URL projektu (np. "prodom-budownictwo" lub "enterprise")
+        const urlObj = new URL(project.url.startsWith('http') ? project.url : 'https://' + project.url);
+        const projectPathSegment = urlObj.pathname.split('/').filter(p => p).pop()?.toLowerCase();
 
-        // Sprawdzamy, czy aktualny adres strony NIE zawiera nazwy projektu ani jego URL
-        const isCurrentSite = currentUrl.includes(projectSlug) || currentUrl.includes("enterprise");
+        // SPRAWDZANIE: Czy aktualna ścieżka zawiera nazwę folderu projektu?
+        // Dodatkowo sprawdzamy czy to nie jest strona główna (jeśli folder jest pusty)
+        const isCurrentSite = projectPathSegment && currentPath.includes('/' + projectPathSegment + '/');
 
         if (!isCurrentSite) {
             html += `
                 <a href="${project.url}" target="_blank" title="${project.title}">
-                    <img src="${project.img}" alt="${project.name}" onerror="this.style.display='none'">
+                    <img src="${project.img}" alt="${project.name}" 
+                         style="max-width: 120px; margin: 10px; transition: transform 0.3s;"
+                         onmouseover="this.style.transform='scale(1.1)'"
+                         onmouseout="this.style.transform='scale(1)'"
+                         onerror="this.style.display='none'">
                 </a>`;
         }
     });
 
     container.innerHTML = html;
-});
-
-
 });

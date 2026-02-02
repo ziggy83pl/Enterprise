@@ -2,6 +2,42 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.6.4] - Settings Reset - 2026-05-22
+### Dodano (UX)
+- **Reset Button:** Dodano przycisk "↺" w menu, który przywraca domyślne ustawienia strony.
+- **Logika:** Kliknięcie czyści `localStorage` i natychmiast przywraca domyślny język (PL), motyw (zgodny z systemem) oraz tło.
+
+## [1.6.3] - Smooth Background Transition - 2026-05-22
+### Zmieniono (UI)
+- **Animacja:** Wydłużono czas przejścia (`transition`) koloru tła strony (`body`) z 0.3s do 0.8s.
+- **Efekt:** Zmiana tła przyciskiem "🎨" jest teraz znacznie płynniejsza i przypomina efekt "fade".
+
+## [1.6.2] - Extended Color Palette - 2026-05-22
+### Zmieniono (UI)
+- **Background Changer:** Rozszerzono paletę dostępnych kolorów tła o nowe odcienie (błękit, fiolet, zieleń, pomarańcz).
+
+## [1.6.1] - Background Persistence - 2026-05-22
+### Zmieniono (UX)
+- **Background Changer:** Przeniesiono przycisk zmiany tła ("🎨") z lewego dolnego rogu do paska nawigacji (obok zmiany języka).
+- **Persistence:** Wybrany kolor tła jest teraz zapamiętywany w `localStorage` i przywracany po odświeżeniu strony.
+- **Cleanup:** Usunięto zbędne style `.btn-floating-left`.
+
+## [1.6.0] - Language & Customization - 2026-05-22
+### Dodano (Features)
+- **Język (i18n):** Dodano obsługę języka angielskiego (flaga USA) i polskiego. Przycisk w menu przełącza teksty na stronie w czasie rzeczywistym.
+- **Personalizacja:** Dodano przycisk "🎨" w lewym dolnym rogu, który pozwala użytkownikowi zmieniać kolor tła strony.
+- **UI:** Dodano tooltipy (dymki) do nowych przycisków, wykorzystując uogólnioną klasę `.custom-tooltip`.
+
+## [1.5.5] - Colored Glow Effect - 2026-05-22
+### Dodano (UI)
+- **Logo Glow:** Dodano efekt kolorowej poświaty (`box-shadow`) wokół logotypów po najechaniu myszką.
+- **Dynamiczne Kolory:** Każde logo ma przypisany unikalny kolor w `portfolio-logos.js` (np. RentMaster - granatowy, Enterprise - zielony), który jest przekazywany do CSS przez zmienną `--hover-color`.
+
+## [1.5.4] - Custom Tooltips - 2026-05-22
+### Dodano (UI)
+- **Logos Tooltip:** Zastąpiono standardowy atrybut `title` w sekcji logotypów własnym rozwiązaniem CSS (`.logo-tooltip`).
+- **Styl:** Dymek z opisem pojawia się teraz nad logo z płynną animacją i ciemnym tłem, co wygląda znacznie nowocześniej.
+
 ## [1.5.3] - Animated Favicon - 2026-05-22
 ### Dodano (UI/UX)
 - **Favicon Loader:** Dodano animację ładowania na ikonie w karcie przeglądarki.

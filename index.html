@@ -15,6 +15,16 @@
     <meta name="theme-color" content="#10b981">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ET7CBLPFML"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ET7CBLPFML');
+</script>
 </head>
 <body>
 
@@ -24,6 +34,9 @@
             <div class="logo">Enterprise</div>
             <button id="menu-toggle" class="menu-toggle" aria-label="Otwórz menu">☰</button>
             <div class="nav-links">
+                <button id="lang-toggle" class="btn-sm custom-tooltip" data-tooltip="Zmień język / Change language">🇺🇸 EN</button>
+                <button id="bg-change-btn" class="btn-sm custom-tooltip" data-tooltip="Zmień tło / Change background">🎨</button>
+                <button id="reset-btn" class="btn-sm custom-tooltip" data-tooltip="Resetuj ustawienia / Reset settings">↺</button>
                 <button id="theme-toggle" class="btn-sm">🌙</button>
                 <button id="share-btn" class="btn-sm">Udostępnij</button>
                 <a href="#kontakt" class="btn-sm">Napisz do mnie</a>
@@ -31,9 +44,9 @@
         </nav>
         <div class="hero-wrapper">
             <div class="hero-content fade-in-section">
-                <h1>Tworzę strony, które pracują dla Ciebie</h1>
-                <p>Nie jestem wielką agencją. Jestem pasjonatem, który pomoże Ci zbudować prostą, skuteczną i ładną wizytówkę w internecie.</p>
-                <a href="#uslugi" class="btn-main">Sprawdź, co mogę zrobić</a>
+                <h1 data-lang="hero_title">Tworzę strony, które pracują dla Ciebie</h1>
+                <p data-lang="hero_desc">Nie jestem wielką agencją. Jestem pasjonatem, który pomoże Ci zbudować prostą, skuteczną i ładną wizytówkę w internecie.</p>
+                <a href="#uslugi" class="btn-main" data-lang="hero_btn">Sprawdź, co mogę zrobić</a>
             </div>
             <div class="hero-side-text fade-in-section slide-in-right">
                 <p>Digital <br> <span class="glitch-text" data-text="Enterprise">Enterprise</span> <br> Solutions</p>
@@ -44,8 +57,8 @@
 
 <section id="o-mnie" class="about fade-in-section">
     <div class="container">
-        <h2>Dlaczego ja?</h2>
-        <p>Programowanie to moja pasja, a nie rzemiosło z biura. Do każdego projektu podchodzę jak do własnego – dbam o detale, których inni mogą nie zauważyć. Jeśli potrzebujesz strony bez zbędnego skomplikowania, za to z "duszą" i pełnym wsparciem – dobrze trafiłeś.</p>
+        <h2 data-lang="about_title">Dlaczego ja?</h2>
+        <p data-lang="about_desc">Programowanie to moja pasja, a nie rzemiosło z biura. Do każdego projektu podchodzę jak do własnego – dbam o detale, których inni mogą nie zauważyć. Jeśli potrzebujesz strony bez zbędnego skomplikowania, za to z "duszą" i pełnym wsparciem – dobrze trafiłeś.</p>
     </div>
 </section>
 
@@ -54,15 +67,15 @@
         <div class="stats-grid">
             <div class="stat-item">
                 <div class="stat-number" data-target="15" data-suffix="+">0</div>
-                <p>Zrealizowanych Projektów</p>
+                <p data-lang="stats_projects">Zrealizowanych Projektów</p>
             </div>
             <div class="stat-item">
                 <div class="stat-number" data-target="4" data-suffix="+">0</div>
-                <p>Lata Doświadczenia</p>
+                <p data-lang="stats_exp">Lata Doświadczenia</p>
             </div>
             <div class="stat-item">
                 <div class="stat-number" data-target="100" data-suffix="%">0</div>
-                <p>Zadowolonych Klientów</p>
+                <p data-lang="stats_clients">Zadowolonych Klientów</p>
             </div>
         </div>
     </div>
@@ -110,28 +123,26 @@
 
 <section class="portfolio fade-in-section">
     <div class="container">
-        <h2>Moje ostatnie prace</h2>
-        <div class="portfolio-links">
-            <p>• Projekt Społeczny: <strong>Referendum</strong></p>
-            <p>• Wizytówka Firmowa: <strong>Paweł Szczęsny - Usługi</strong></p>
-            <p>• Budownictwo: <strong>Prodom</strong></p>
-        </div>
+        <h2 data-lang="portfolio_title">Wspieramy i wspołpracujemy z innymi firmami</h2>
+
+        <!-- Kontener na loga ładowane z JS -->
+        <div id="global-trusted-logos" class="trusted-logos"></div>
     </div>
 </section>
 
 <section id="kontakt" class="contact fade-in-section">
     <div class="container">
-        <h2>Masz pomysł? Zrealizujmy go!</h2>
-        <p>Napisz do mnie, a wspólnie zastanowimy się, jak najlepiej zaprezentować Twoją ofertę.</p>
+        <h2 data-lang="contact_title">Masz pomysł? Zrealizujmy go!</h2>
+        <p data-lang="contact_desc">Napisz do mnie, a wspólnie zastanowimy się, jak najlepiej zaprezentować Twoją ofertę.</p>
         <div class="contact-details">
-            <p>Lokalizacja: <strong>Zdalnie</strong></p>
+            <p><span data-lang="location">Lokalizacja</span>: <strong data-lang="remote">Zdalnie</strong></p>
         </div>
         <form id="contact-form" class="contact-form">
-            <input type="text" name="imie" placeholder="Twoje imię" required spellcheck="true">
-            <input type="tel" name="telefon" placeholder="Twój telefon" required>
-            <input type="email" name="email" placeholder="Twój email" required>
-            <textarea name="wiadomosc" placeholder="Treść wiadomości" rows="5" required spellcheck="true"></textarea>
-            <button type="submit" class="btn-main">Wyślij wiadomość</button>
+            <input type="text" name="imie" placeholder="Twoje imię" data-lang-placeholder="form_name" required spellcheck="true">
+            <input type="tel" name="telefon" placeholder="Twój telefon" data-lang-placeholder="form_phone" required>
+            <input type="email" name="email" placeholder="Twój email" data-lang-placeholder="form_email" required>
+            <textarea name="wiadomosc" placeholder="Treść wiadomości" data-lang-placeholder="form_msg" rows="5" required spellcheck="true"></textarea>
+            <button type="submit" class="btn-main" data-lang="form_btn">Wyślij wiadomość</button>
         </form>
     </div>
 </section>
@@ -153,5 +164,6 @@
 <button id="scrollTopBtn" class="scroll-top-btn" title="Wróć do góry">↑</button>
 
 <script src="script.js" defer></script>
+<script src="portfolio-logos.js" defer></script>
 </body>
 </html>

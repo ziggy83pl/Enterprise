@@ -35,7 +35,7 @@ body {
     color: var(--text);
     line-height: 1.6;
     background: var(--bg);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.8s ease, color 0.3s ease;
 }
 
 h1, h2, h3 {
@@ -209,6 +209,90 @@ nav.scrolled {
 
 .portfolio { padding: 80px 0; }
 .portfolio-links p { margin: 10px 0; font-size: 1.1rem; }
+
+/* Style dla sekcji logotypów (Zaufali nam / Portfolio) */
+.trusted-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.trusted-logos img {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: #ffffff;
+    padding: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    filter: grayscale(100%);
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.trusted-logos img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--hover-color);
+}
+
+/* Custom Tooltip (Dymek z opisem) - Uogólniona klasa */
+.logo-tooltip,
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.logo-tooltip::before, .logo-tooltip::after,
+.custom-tooltip::before, .custom-tooltip::after {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Efekt sprężystości */
+    pointer-events: none;
+    z-index: 1100; /* Wyższy index, aby było nad menu */
+}
+
+/* Tekst dymka */
+.logo-tooltip::after,
+.custom-tooltip::after {
+    content: attr(data-tooltip);
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 12px;
+}
+
+/* Strzałka dymka */
+.logo-tooltip::before,
+.custom-tooltip::before {
+    content: '';
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border: 6px solid transparent;
+    border-top-color: #333;
+    margin-bottom: 0px;
+}
+
+/* Efekt hover - pokazanie dymka */
+.logo-tooltip:hover::before, .logo-tooltip:hover::after,
+.custom-tooltip:hover::before, .custom-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
 
 .contact { padding: 100px 0; text-align: center; background: var(--contact-bg); color: var(--contact-text); transition: background-color 0.3s ease, color 0.3s ease; }
 .contact h2 { margin-bottom: 20px; }

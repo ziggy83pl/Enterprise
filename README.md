@@ -1,5 +1,3 @@
-https://ziggy83pl.github.io/Enterprise/
-
 # MojaPasja - Twoja Strona w Sieci
 
 Strona wizytówka oferująca usługi tworzenia i modernizacji stron internetowych. Projekt skierowany do osób szukających prostych, estetycznych i technicznie dopracowanych rozwiązań w sieci.
@@ -43,5 +41,4 @@ Przykładowe realizacje wymienione na stronie:
 ## Kontakt
 
 *   **Email:** twoj-email@przyklad.pl
-
 *   **Lokalizacja:** Łomża i okolice / Zdalnie

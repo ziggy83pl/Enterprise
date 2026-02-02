@@ -315,3 +315,132 @@ if (faviconLink) {
         }, 1500);
     });
 }
+
+// 10. Tłumaczenia (PL / EN)
+const translations = {
+    pl: {
+        hero_title: "Tworzę strony, które pracują dla Ciebie",
+        hero_desc: "Nie jestem wielką agencją. Jestem pasjonatem, który pomoże Ci zbudować prostą, skuteczną i ładną wizytówkę w internecie.",
+        hero_btn: "Sprawdź, co mogę zrobić",
+        about_title: "Dlaczego ja?",
+        about_desc: "Programowanie to moja pasja, a nie rzemiosło z biura. Do każdego projektu podchodzę jak do własnego – dbam o detale, których inni mogą nie zauważyć. Jeśli potrzebujesz strony bez zbędnego skomplikowania, za to z \"duszą\" i pełnym wsparciem – dobrze trafiłeś.",
+        stats_projects: "Zrealizowanych Projektów",
+        stats_exp: "Lata Doświadczenia",
+        stats_clients: "Zadowolonych Klientów",
+        portfolio_title: "Wspieramy i współpracujemy z innymi firmami",
+        contact_title: "Masz pomysł? Zrealizujmy go!",
+        contact_desc: "Napisz do mnie, a wspólnie zastanowimy się, jak najlepiej zaprezentować Twoją ofertę.",
+        location: "Lokalizacja",
+        remote: "Zdalnie",
+        form_name: "Twoje imię",
+        form_phone: "Twój telefon",
+        form_email: "Twój email",
+        form_msg: "Treść wiadomości",
+        form_btn: "Wyślij wiadomość"
+    },
+    en: {
+        hero_title: "I create websites that work for you",
+        hero_desc: "I am not a big agency. I am an enthusiast who will help you build a simple, effective, and beautiful online business card.",
+        hero_btn: "Check what I can do",
+        about_title: "Why me?",
+        about_desc: "Programming is my passion, not just an office craft. I treat every project like my own – I care about details that others might miss. If you need a website without unnecessary complexity, but with \"soul\" and full support – you've come to the right place.",
+        stats_projects: "Completed Projects",
+        stats_exp: "Years of Experience",
+        stats_clients: "Satisfied Clients",
+        portfolio_title: "We support and cooperate with other companies",
+        contact_title: "Have an idea? Let's realize it!",
+        contact_desc: "Write to me, and together we will figure out how to best present your offer.",
+        location: "Location",
+        remote: "Remote",
+        form_name: "Your name",
+        form_phone: "Your phone",
+        form_email: "Your email",
+        form_msg: "Message content",
+        form_btn: "Send message"
+    }
+};
+
+const langToggle = document.getElementById('lang-toggle');
+let currentLang = localStorage.getItem('lang') || 'pl';
+
+function setLanguage(lang) {
+    const elements = document.querySelectorAll('[data-lang]');
+    elements.forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
+    });
+
+    // Obsługa placeholderów w formularzu
+    const placeholders = document.querySelectorAll('[data-lang-placeholder]');
+    placeholders.forEach(el => {
+        const key = el.getAttribute('data-lang-placeholder');
+        if (translations[lang][key]) {
+            el.placeholder = translations[lang][key];
+        }
+    });
+
+    // Zmiana przycisku
+    langToggle.textContent = lang === 'pl' ? '🇺🇸 EN' : '🇵🇱 PL';
+    localStorage.setItem('lang', lang);
+    currentLang = lang;
+}
+
+// Inicjalizacja języka
+setLanguage(currentLang);
+
+langToggle.addEventListener('click', () => {
+    setLanguage(currentLang === 'pl' ? 'en' : 'pl');
+});
+
+// 11. Zmiana tła (Background Changer)
+const bgChangeBtn = document.getElementById('bg-change-btn');
+const bgColors = ['var(--bg)', '#f0f4f8', '#eef2f3', '#fff0f5', '#f5f5dc', '#e0f7fa', '#f3e5f5', '#e8f5e9', '#fff3e0']; // Lista kolorów
+let bgIndex = parseInt(localStorage.getItem('bgIndex')) || 0;
+
+// Funkcja aplikująca tło
+function applyBackground(index) {
+    if (index > 0) {
+        document.documentElement.style.setProperty('--bg', bgColors[index]);
+        document.body.style.backgroundColor = bgColors[index];
+    } else {
+        // Reset do domyślnego (zależnego od motywu dark/light)
+        document.documentElement.style.removeProperty('--bg');
+        document.body.style.backgroundColor = '';
+    }
+}
+
+// Zastosuj zapisane tło na starcie
+applyBackground(bgIndex);
+
+bgChangeBtn.addEventListener('click', () => {
+    bgIndex = (bgIndex + 1) % bgColors.length;
+    localStorage.setItem('bgIndex', bgIndex);
+    applyBackground(bgIndex);
+});
+
+// 12. Reset Ustawień (Factory Reset)
+const resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', () => {
+    // 1. Reset Języka
+    localStorage.removeItem('lang');
+    currentLang = 'pl';
+    setLanguage('pl');
+
+    // 2. Reset Motywu
+    localStorage.removeItem('theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if (systemTheme === 'dark') {
+        htmlElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '☀️';
+    } else {
+        htmlElement.removeAttribute('data-theme');
+        themeToggle.textContent = '🌙';
+    }
+
+    // 3. Reset Tła
+    localStorage.removeItem('bgIndex');
+    bgIndex = 0;
+    applyBackground(0);
+});

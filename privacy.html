@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polityka Prywatności - Enterprise</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { padding-top: 0; }
+        .privacy-container { max-width: 800px; margin: 60px auto; padding: 20px; }
+        h1 { margin-bottom: 30px; color: var(--accent); }
+        h2 { margin-top: 30px; margin-bottom: 15px; font-size: 1.5rem; }
+        p, li { margin-bottom: 15px; color: var(--text); }
+        ul { margin-left: 20px; }
+        .back-link { display: inline-block; margin-bottom: 30px; color: var(--accent); text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="privacy-container">
+        <a href="index.html" class="back-link">← Powrót do strony głównej</a>
+        
+        <h1>Polityka Prywatności</h1>
+        
+        <p>Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez Użytkowników w związku z korzystaniem ze strony internetowej <strong>Enterprise</strong>.</p>
+
+        <h2>1. Administrator Danych</h2>
+        <p>Administratorem danych osobowych zawartych w serwisie jest Właściciel strony Enterprise. Kontakt z Administratorem możliwy jest poprzez formularz kontaktowy dostępny na stronie lub pod adresem email podanym w sekcji kontakt.</p>
+
+        <h2>2. Dane Osobowe</h2>
+        <p>Dane osobowe przetwarzane są na podstawie zgody wyrażanej przez Użytkownika oraz w przypadkach, w których przepisy prawa upoważniają Administratora do przetwarzania danych osobowych na podstawie przepisów prawa lub w celu realizacji zawartej pomiędzy stronami umowy.</p>
+        <p>Serwis zbiera informacje dobrowolnie podane przez użytkownika w formularzu kontaktowym (Imię, Telefon, Email, Treść wiadomości) w celu nawiązania kontaktu i odpowiedzi na zapytanie.</p>
+
+        <h2>3. Pliki Cookies (Ciasteczka)</h2>
+        <p>Strona internetowa korzysta z plików cookies. Są to niewielkie pliki tekstowe wysyłane przez serwer www i przechowywane przez oprogramowanie komputera przeglądarki. Kiedy przeglądarka ponownie połączy się ze stroną, witryna rozpoznaje rodzaj urządzenia, z którego łączy się użytkownik.</p>
+        <p>Stosujemy pliki cookies w następujących celach:</p>
+        <ul>
+            <li><strong>Konfiguracja serwisu:</strong> dostosowanie zawartości stron do preferencji Użytkownika (np. zapamiętanie wybranego motywu Jasny/Ciemny).</li>
+            <li><strong>Statystyki:</strong> tworzenie anonimowych statystyk, które pomagają zrozumieć, w jaki sposób Użytkownicy korzystają ze strony.</li>
+        </ul>
+
+        <h2>4. Udostępnianie danych</h2>
+        <p>Dane podlegają udostępnieniu podmiotom zewnętrznym wyłącznie w granicach prawnie dozwolonych. Dane umożliwiające identyfikację osoby fizycznej są udostępniane wyłączenie za zgodą tej osoby. Operator może mieć obowiązek udzielania informacji zebranych przez Serwis upoważnionym organom na podstawie zgodnych z prawem żądań w zakresie wynikającym z żądania.</p>
+        <p>W zakresie obsługi formularza kontaktowego, dane mogą być przetwarzane przez dostawcę usługi FormSubmit.</p>
+
+        <h2>5. Prawa Użytkownika</h2>
+        <p>Użytkownikowi przysługuje prawo wglądu do swoich danych osobowych, ich sprostowania, usunięcia lub ograniczenia przetwarzania.</p>
+
+        <h2>6. Zmiany w Polityce Prywatności</h2>
+        <p>Administrator zastrzega sobie prawo do wprowadzania zmian w Polityce Prywatności. Każdego klienta i użytkownika serwisu obowiązuje aktualna Polityka Prywatności znajdująca się na tej podstronie.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Tworzone z pasją</p>
+        <p>Enterprise</p>
+    </footer>
+
+    <script>
+        // Obsługa Dark Mode dla podstrony (uproszczona)
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const currentTheme = savedTheme || systemTheme;
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.style.setProperty('--bg', '#121212');
+            document.documentElement.style.setProperty('--text', '#e0e0e0');
+        }
+    </script>
+</body>
+</html>

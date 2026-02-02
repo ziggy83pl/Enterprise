@@ -228,17 +228,36 @@ nav.scrolled {
     background-color: #ffffff;
     padding: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    filter: grayscale(100%);
-    opacity: 0.9;
+    /* Domyślnie kolorowe */
+    filter: grayscale(0%); 
+    opacity: 1;
     transition: all 0.3s ease;
 }
 
-.trusted-logos img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px var(--hover-color);
+/* Efekt czarno-biały TYLKO na dużych ekranach (komputerach) */
+@media (min-width: 1025px) {
+    .trusted-logos img {
+        filter: grayscale(100%);
+        opacity: 0.9;
+    }
+
+    .trusted-logos img:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+        transform: scale(1.1);
+    }
 }
+
+/* Dodatkowe dopasowanie dla małych ekranów (telefony) */
+@media (max-width: 600px) {
+    .trusted-logos img {
+        height: 60px; /* Nieco mniejsze, żeby więcej się zmieściło */
+        width: 60px;
+        filter: none !important; /* Wymuszenie braku filtra */
+        opacity: 1 !important;
+    }
+}
+
 
 /* Custom Tooltip (Dymek z opisem) - Uogólniona klasa */
 .logo-tooltip,
@@ -439,4 +458,5 @@ footer a { color: var(--accent); text-decoration: none; }
 @keyframes popIn {
     0% { opacity: 0; transform: scale(0.8); }
     100% { opacity: 1; transform: scale(1); }
+
 }

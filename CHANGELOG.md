@@ -2,6 +2,21 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.5.3] - Animated Favicon - 2026-05-22
+### Dodano (UI/UX)
+- **Favicon Loader:** Dodano animację ładowania na ikonie w karcie przeglądarki.
+- **Technologia:** Wykorzystano HTML5 Canvas do dynamicznego rysowania logo ("E") z obracającym się spinnerem, który znika po załadowaniu strony.
+
+## [1.5.2] - Favicon Update - 2026-05-22
+### Zmieniono (Branding)
+- **Favicon:** Zmieniono ikonę w pasku przeglądarki na zielony kwadrat z literą "E" (`https://via.placeholder.com/64x64/10b981/ffffff.png?text=E`).
+- **Spójność:** Zaktualizowano `index.html` oraz `manifest.json`, aby używały tej samej, czytelnej ikony PNG zamiast starego pliku `.ico`.
+
+## [1.5.1] - Branding Icons - 2026-05-22
+### Zmieniono (Branding)
+- **PWA Icons:** Zaktualizowano `manifest.json`, aby ikona aplikacji na telefonie (placeholder) miała kolor firmowy (zielony) i napis "Enterprise", zamiast domyślnego szarego "App".
+- **Social Media:** Potwierdzono spójność `og:image` z tłem nagłówka.
+
 ## [1.5.0] - Auto-save Form - 2026-05-22
 ### Dodano (UX)
 - **Formularz Kontaktowy:** Dodano automatyczne zapisywanie wpisywanej treści w `localStorage`. Dane nie znikają po odświeżeniu strony.

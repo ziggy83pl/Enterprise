@@ -2,6 +2,11 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.6.5] - Validation UX - 2026-05-22
+### Dodano (UX)
+- **Shake Animation:** Pola formularza, które nie przejdą walidacji (błędny telefon lub email), teraz "trzęsą się" i podświetlają na czerwono.
+- **Feedback:** Użytkownik otrzymuje natychmiastową informację zwrotną wizualną o błędzie.
+
 ## [1.6.4] - Settings Reset - 2026-05-22
 ### Dodano (UX)
 - **Reset Button:** Dodano przycisk "↺" w menu, który przywraca domyślne ustawienia strony.

@@ -2,69 +2,79 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('global-trusted-logos');
     if (!container) return;
 
+    // LISTA TWOICH PROJEKTÓW
+    // Obrazki są pobierane z repozytorium RentMaster (główne źródło plików)
     const projects = [
         {
             name: "Doners Kebab",
             url: "https://www.facebook.com/DonersLomza",
             img: "https://ziggy83pl.github.io/zasoby/logo/doners_kebab.webp",
-            title: "Doners Kebab Łomża"
+            title: "Doners Kebab Łomża",
+            label: "Kebab",
+            color: "#e67e22"
         },
         {
             name: "Prodom",
             url: "https://ziggy83pl.github.io/Prodom-budownictwo/",
             img: "https://ziggy83pl.github.io/zasoby/logo/prodom.webp",
-            title: "PRODOM BUDOWNICTWO"
+            title: "PRODOM BUDOWNICTWO",
+            label: "Budowa",
+            color: "#3498db"
         },
         {
             name: "Siepomaga",
             url: "https://www.siepomaga.pl",
             img: "https://ziggy83pl.github.io/zasoby/logo/siepomaga.webp",
-            title: "Wspieramy Siepomaga.pl"
+            title: "Wspieramy Siepomaga.pl",
+            label: "Pomoc",
+            color: "#e74c3c"
         },
         {
             name: "Paweł Szczęsny",
             url: "https://ziggy83pl.github.io/PawelSzczesny/index.html",
             img: "https://ziggy83pl.github.io/zasoby/logo/pawel.webp",
-            title: "CZŁOWIEK, KTÓRY WYKONA WSZYSTKO"
+            title: "CZŁOWIEK, KTÓRY WYKONA WSZYSTKO",
+            label: "Remonty",
+            color: "#34495e"
         },
         {
             name: "Enterprise",
-            url: "https://ziggy83pl.github.io/Enterprise/",
+            url: "https://ziggy83pl.github.io/coder/",
             img: "https://ziggy83pl.github.io/zasoby/logo/enterprise.webp", 
-            title: "Enterprise - Strony WWW"
+            title: "Enterprise - Strony WWW",
+            label: "Strony WWW",
+            color: "#10b981"
         },
         {
             name: "Rentmaster",
             url: "https://ziggy83pl.github.io/rentmaster/",
             img: "https://ziggy83pl.github.io/zasoby/logo/rentmaster.webp",
-            title: "RentMaster - Wynajem"
-        }
+            title: "RentMaster - Wynajem",
+            label: "Wynajem",
+            color: "#1a2a6c"
+        },
     ];
 
-    // Pobieramy aktualną ścieżkę (np. "/Enterprise/index.html")
-    const currentPath = window.location.pathname.toLowerCase();
+    const currentUrl = window.location.href;
 
     let html = '';
     projects.forEach(project => {
-        // Wyciągamy ostatni segment z URL projektu (np. "prodom-budownictwo" lub "enterprise")
-        const urlObj = new URL(project.url.startsWith('http') ? project.url : 'https://' + project.url);
-        const projectPathSegment = urlObj.pathname.split('/').filter(p => p).pop()?.toLowerCase();
+        // SPRAWDZANIE: Jeśli aktualny adres zawiera URL projektu, pomiń go
+        // Pobieramy część URL po domenie (np. 'Prodom-budownictwo')
+        let pathSegment = project.url.replace('https://', '').replace('http://', '').split('/')[1];
+        
+        // Zabezpieczenie dla domen głównych (np. siepomaga.pl) lub specyficznych przypadków
+        if (!pathSegment) pathSegment = project.name;
 
-        // SPRAWDZANIE: Czy aktualna ścieżka zawiera nazwę folderu projektu?
-        // Dodatkowo sprawdzamy czy to nie jest strona główna (jeśli folder jest pusty)
-        const isCurrentSite = projectPathSegment && currentPath.includes('/' + projectPathSegment + '/');
-
-        if (!isCurrentSite) {
+        if (!currentUrl.includes(pathSegment)) {
             html += `
-                <a href="${project.url}" target="_blank" title="${project.title}">
-                    <img src="${project.img}" alt="${project.name}" 
-                         style="max-width: 120px; margin: 10px; transition: transform 0.3s;"
-                         onmouseover="this.style.transform='scale(1.1)'"
-                         onmouseout="this.style.transform='scale(1)'"
-                         onerror="this.style.display='none'">
+                <a href="${project.url}" target="_blank" class="logo-tooltip" data-tooltip="${project.title}">
+                    <img src="${project.img}" alt="${project.name}" style="--hover-color: ${project.color}" onerror="this.style.display='none'">
+                    <span class="logo-label">${project.label}</span>
                 </a>`;
         }
     });
 
     container.innerHTML = html;
+
 });

@@ -59,12 +59,11 @@
     <script>
         // Obsługa Dark Mode dla podstrony (uproszczona)
         const savedTheme = localStorage.getItem('theme');
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        const currentTheme = savedTheme || systemTheme;
+        const currentTheme = savedTheme || 'dark'; // Domyślnie ciemny
         if (currentTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
-            document.documentElement.style.setProperty('--bg', '#121212');
-            document.documentElement.style.setProperty('--text', '#e0e0e0');
+            document.documentElement.style.setProperty('--bg', '#02010a');
+            document.documentElement.style.setProperty('--text', '#e0e6ed');
         }
     </script>
 </body>

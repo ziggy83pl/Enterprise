@@ -2,6 +2,12 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.7.1] - Service Worker Fix - 2026-05-22
+### Naprawiono (PWA)
+- **Błąd "Failed to fetch":** Naprawiono błąd uniemożliwiający instalację Service Workera.
+- **Strategia Cache:** Zmieniono logikę buforowania plików na bardziej odporną. Zamiast metody "wszystko albo nic" (`cache.addAll`), każdy zasób jest teraz pobierany indywidualnie, co zapobiega awarii całej operacji przez jeden niedostępny plik (np. z powodu przekierowania).
+- **Spójność:** Dodano brakujące ikony PWA do listy plików do zbuforowania.
+
 ## [1.7.0] - PWA Cache Fix - 2026-05-22
 ### Naprawiono (Core)
 - **Problem z Cache:** Naprawiono agresywne buforowanie przez Service Worker, które uniemożliwiało aktualizację strony do nowej wersji.

@@ -1,6 +1,6 @@
 // service-worker.js
 
-const CACHE_NAME = 'enterprise-cache-v1.7.0'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
+const CACHE_NAME = 'enterprise-cache-v1.7.1'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
 const urlsToCache = [
   './',
   './index.html',
@@ -9,9 +9,13 @@ const urlsToCache = [
   './portfolio-logos.js',
   './manifest.json',
   './privacy.html',
+  // Zasoby zewnętrzne, które mogą powodować problemy
   'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap',
   'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1920&auto=format&fit=crop',
-  'https://via.placeholder.com/64x64/10b981/ffffff.png?text=E'
+  // Ikony PWA
+  'https://via.placeholder.com/64x64/10b981/ffffff.png?text=E',
+  'https://via.placeholder.com/192x192/10b981/ffffff.png?text=Enterprise',
+  'https://via.placeholder.com/512x512/10b981/ffffff.png?text=Enterprise'
 ];
 
 // 1. Instalacja Service Workera i cache'owanie zasobów
@@ -19,8 +23,23 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Service Worker: Cache opened and files cached.');
-        return cache.addAll(urlsToCache);
+        console.log('Service Worker: Otwarto cache. Próba zapisania zasobów.');
+        // Tworzymy tablicę obietnic (promises) dla każdego zasobu
+        const cachePromises = urlsToCache.map(urlToCache => {
+          // Dla zasobów z innych domen używamy trybu 'no-cors', aby uniknąć błędów
+          const request = new Request(urlToCache, { mode: 'no-cors' });
+          return fetch(request)
+            .then(response => cache.put(request, response))
+            .catch(err => {
+              console.warn(`Service Worker: Nie udało się zapisać w cache pliku: ${urlToCache}`, err);
+            });
+        });
+
+        // Czekamy, aż wszystkie (udane) operacje zapisu się zakończą
+        return Promise.all(cachePromises)
+          .then(() => {
+            console.log('Service Worker: Zakończono próbę zapisu zasobów.');
+          });
       })
   );
 });
@@ -46,6 +65,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
+        // Jeśli zasób jest w cache, zwróć go. W przeciwnym razie, pobierz z sieci.
         return response || fetch(event.request);
       })
   );

@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('global-trusted-logos');
     if (!container) return;
 
-    // LISTA TWOICH PROJEKTÓW
-    // Obrazki są pobierane z repozytorium RentMaster (główne źródło plików)
     const projects = [
         {
             name: "Doners Kebab",
@@ -52,21 +50,20 @@ document.addEventListener("DOMContentLoaded", function() {
             title: "RentMaster - Wynajem",
             label: "Wynajem",
             color: "#1a2a6c"
-        },
+        }
     ];
 
-    const currentUrl = window.location.href;
+    // Pobieramy aktualną ścieżkę (np. "/coder/index.html")
+    const currentPath = window.location.pathname.toLowerCase();
 
     let html = '';
     projects.forEach(project => {
-        // SPRAWDZANIE: Jeśli aktualny adres zawiera URL projektu, pomiń go
-        // Pobieramy część URL po domenie (np. 'Prodom-budownictwo')
-        let pathSegment = project.url.replace('https://', '').replace('http://', '').split('/')[1];
-        
-        // Zabezpieczenie dla domen głównych (np. siepomaga.pl) lub specyficznych przypadków
-        if (!pathSegment) pathSegment = project.name;
+        const urlObj = new URL(project.url);
+        const projectPathSegment = urlObj.pathname.split('/').filter(p => p).pop()?.toLowerCase();
 
-        if (!currentUrl.includes(pathSegment)) {
+        const isCurrentSite = projectPathSegment && currentPath.includes(`/${projectPathSegment}/`);
+
+        if (!isCurrentSite) {
             html += `
                 <a href="${project.url}" target="_blank" class="logo-tooltip" data-tooltip="${project.title}">
                     <img src="${project.img}" alt="${project.name}" style="--hover-color: ${project.color}" onerror="this.style.display='none'">
@@ -76,5 +73,4 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     container.innerHTML = html;
-
 });

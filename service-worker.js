@@ -1,6 +1,6 @@
 // service-worker.js
 
-const CACHE_NAME = 'enterprise-cache-v1.7.1'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
+const CACHE_NAME = 'enterprise-cache-v1.7.4'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
 const urlsToCache = [
   './',
   './index.html',

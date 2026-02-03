@@ -61,7 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const urlObj = new URL(project.url);
         const projectPathSegment = urlObj.pathname.split('/').filter(p => p).pop()?.toLowerCase();
 
-        const isCurrentSite = projectPathSegment && currentPath.includes(`/${projectPathSegment}/`);
+        // SPRAWDZANIE: Czy to aktualna strona?
+        // 1. Sprawdź URL (dla GitHub Pages) LUB 2. Sprawdź Tytuł strony (dla localhost/serwerów lokalnych)
+        const isCurrentSite = (projectPathSegment && currentPath.includes(`/${projectPathSegment}/`)) || document.title.toLowerCase().includes(project.name.toLowerCase());
 
         if (!isCurrentSite) {
             html += `

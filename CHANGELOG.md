@@ -2,6 +2,23 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.7.4] - Footer Magnifier - 2026-05-22
+### Dodano (UI)
+- **Magnifying Glass Effect:** Dodano animację "lupy" do numeru wersji w stopce.
+- **Logika:** Litery i cyfry powiększają się sekwencyjnie (fala) co 4 sekundy, gdy stopka jest widoczna na ekranie.
+
+## [1.7.3] - Typewriter Fix - 2026-05-22
+### Naprawiono (Bugfix)
+- **Typewriter Effect:** Naprawiono błąd duplikowania się tekstu w nagłówku H1 przy zmianie języka lub przeładowaniu. Dodano funkcję `runTypewriter`, która czyści `textContent` przed rozpoczęciem pisania.
+- **Mobile Menu:** Dodano automatyczne zamykanie menu mobilnego po kliknięciu w link nawigacyjny (Smooth Scroll).
+- **Cache:** Podbito wersję Service Workera.
+
+## [1.7.2] - Logo Logic Fix - 2026-05-22
+### Naprawiono (Logic)
+- **Portfolio Logos:** Ulepszono logikę wykluczania logo aktualnej strony.
+- **Localhost Fix:** Dodano sprawdzanie `document.title` jako fallback. Dzięki temu logo "Enterprise" nie wyświetla się na stronie Enterprise nawet podczas testów lokalnych, gdzie URL nie zawiera nazwy folderu.
+- **Cache:** Podbito wersję Service Workera, aby wymusić pobranie nowego pliku JS.
+
 ## [1.7.1] - Service Worker Fix - 2026-05-22
 ### Naprawiono (PWA)
 - **Błąd "Failed to fetch":** Naprawiono błąd uniemożliwiający instalację Service Workera.

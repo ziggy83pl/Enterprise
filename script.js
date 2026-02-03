@@ -6,6 +6,14 @@ document.addEventListener('click', function (e) {
         const targetElement = targetId && targetId !== '#' ? document.querySelector(targetId) : null;
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
+            
+            // Zamknij menu mobilne po kliknięciu (Fix z Twojego kodu)
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.textContent = '☰';
+            }
         }
     }
 });
@@ -195,22 +203,24 @@ menuToggle.addEventListener('click', () => {
 });
 
 // 5. Efekt pisania na maszynie (Typewriter) dla nagłówka H1
-const heroHeader = document.querySelector('.hero-content h1');
-if (heroHeader) {
-    const textToType = heroHeader.textContent;
-    heroHeader.textContent = ''; // Wyczyszczenie tekstu początkowego
+let typewriterTimeout;
+
+function runTypewriter(text) {
+    const heroHeader = document.querySelector('.hero-content h1');
+    if (!heroHeader) return;
+
+    clearTimeout(typewriterTimeout); // Zatrzymaj poprzednią animację
+    heroHeader.textContent = ''; // Wyczyść tekst, aby uniknąć duplikatów
     
     let charIndex = 0;
-    function typeWriter() {
-        if (charIndex < textToType.length) {
-            heroHeader.textContent += textToType.charAt(charIndex);
+    function type() {
+        if (charIndex < text.length) {
+            heroHeader.textContent += text.charAt(charIndex);
             charIndex++;
-            setTimeout(typeWriter, 80); // Prędkość pisania (ms)
+            typewriterTimeout = setTimeout(type, 80);
         }
     }
-    
-    // Start animacji po 500ms
-    setTimeout(typeWriter, 500);
+    type();
 }
 
 // 6. Liczniki (Counters) - Animacja odliczania
@@ -359,7 +369,11 @@ function setLanguage(lang) {
     elements.forEach(el => {
         const key = el.getAttribute('data-lang');
         if (translations[lang][key]) {
-            el.textContent = translations[lang][key];
+            if (key === 'hero_title') {
+                runTypewriter(translations[lang][key]);
+            } else {
+                el.textContent = translations[lang][key];
+            }
         }
     });
 
@@ -447,4 +461,49 @@ if ('serviceWorker' in navigator) {
                 console.log('ServiceWorker registration failed: ', err);
             });
     });
+}
+
+// 14. Efekt Lupy w Stopce (Footer Magnifier)
+const versionText = document.getElementById('version-text');
+if (versionText) {
+    const text = versionText.innerText;
+    // Rozbijamy tekst na litery, zachowując spacje jako &nbsp;
+    versionText.innerHTML = text.split('').map(char => {
+        return char === ' ' ? '<span style="display:inline">&nbsp;</span>' : `<span>${char}</span>`;
+    }).join('');
+    
+    const spans = versionText.querySelectorAll('span');
+    let isAnimating = false;
+
+    const runMagnifyAnimation = () => {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        spans.forEach((span, index) => {
+            setTimeout(() => {
+                span.classList.add('magnified');
+                setTimeout(() => span.classList.remove('magnified'), 150); // Czas trwania powiększenia jednej litery
+                
+                if (index === spans.length - 1) isAnimating = false;
+            }, index * 70); // Prędkość fali (im mniej, tym szybciej)
+        });
+    };
+
+    // Uruchamiaj animację co jakiś czas, gdy stopka jest widoczna
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            runMagnifyAnimation(); // Uruchom raz na start
+            const interval = setInterval(() => {
+                // Sprawdź czy element nadal jest w viewport (zabezpieczenie)
+                if (entries[0].target.getBoundingClientRect().top < window.innerHeight) {
+                    runMagnifyAnimation();
+                }
+            }, 5000); // Powtarzaj co 4 sekundy
+            versionText.dataset.intervalId = interval;
+        } else {
+            clearInterval(versionText.dataset.intervalId);
+        }
+    }, { threshold: 0.5 });
+    
+    observer.observe(versionText);
 }

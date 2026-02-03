@@ -2,6 +2,12 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.7.0] - PWA Cache Fix - 2026-05-22
+### Naprawiono (Core)
+- **Problem z Cache:** Naprawiono agresywne buforowanie przez Service Worker, które uniemożliwiało aktualizację strony do nowej wersji.
+- **Service Worker:** Dodano nowy, wersjonowany plik `service-worker.js` z logiką czyszczenia starych pamięci podręcznych.
+- **Rejestracja:** Dodano w `script.js` kod do prawidłowej rejestracji i zarządzania Service Workerem.
+
 ## [1.6.5] - Validation UX - 2026-05-22
 ### Dodano (UX)
 - **Shake Animation:** Pola formularza, które nie przejdą walidacji (błędny telefon lub email), teraz "trzęsą się" i podświetlają na czerwono.

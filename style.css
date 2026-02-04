@@ -212,67 +212,12 @@ nav.scrolled {
 .portfolio { padding: 80px 0; }
 .portfolio-links p { margin: 10px 0; font-size: 1.1rem; }
 
-/* Style dla sekcji logotypów (Zaufali nam / Portfolio) */
-.trusted-logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.trusted-logos a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text);
-}
-
-.logo-label {
-    display: block;
-    margin-top: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-align: center;
-    opacity: 0.8;
-}
-
-.trusted-logos img {
-    height: 70px;
-    width: 70px;
-    object-fit: contain;
-    border-radius: 50%;
-    background-color: #ffffff;
-    padding: 4px; /* Zmniejszony margines, logo większe */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    /* filter: grayscale(100%); */
-    opacity: 0.9;
-    transition: all 0.3s ease;
-}
-
-.trusted-logos img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px var(--hover-color);
-}
-
-@media (max-width: 768px) {
-    .logo-label {
-        display: block; /* Pokazuj podpisy na mobilkach */
-    }
-}
-
 /* Custom Tooltip (Dymek z opisem) - Uogólniona klasa */
-.logo-tooltip,
 .custom-tooltip {
     position: relative;
     display: inline-block;
 }
 
-.logo-tooltip::before, .logo-tooltip::after,
 .custom-tooltip::before, .custom-tooltip::after {
     position: absolute;
     opacity: 0;
@@ -283,7 +228,6 @@ nav.scrolled {
 }
 
 /* Tekst dymka */
-.logo-tooltip::after,
 .custom-tooltip::after {
     content: attr(data-tooltip);
     bottom: 100%;
@@ -300,7 +244,6 @@ nav.scrolled {
 }
 
 /* Strzałka dymka */
-.logo-tooltip::before,
 .custom-tooltip::before {
     content: '';
     bottom: 100%;
@@ -312,7 +255,6 @@ nav.scrolled {
 }
 
 /* Efekt hover - pokazanie dymka */
-.logo-tooltip:hover::before, .logo-tooltip:hover::after,
 .custom-tooltip:hover::before, .custom-tooltip:hover::after {
     opacity: 1;
     visibility: visible;
@@ -495,6 +437,4 @@ footer a { color: var(--accent); text-decoration: none; }
     color: var(--accent);
     text-shadow: 0 5px 10px rgba(0,0,0,0.2);
     font-weight: 700;
-
 }
-

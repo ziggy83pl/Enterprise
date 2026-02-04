@@ -247,7 +247,7 @@ nav.scrolled {
     background-color: #ffffff;
     padding: 4px; /* Zmniejszony margines, logo większe */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    filter: grayscale(100%);
+    /* filter: grayscale(100%); */
     opacity: 0.9;
     transition: all 0.3s ease;
 }
@@ -497,3 +497,4 @@ footer a { color: var(--accent); text-decoration: none; }
     font-weight: 700;
 
 }
+

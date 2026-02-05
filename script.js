@@ -1,5 +1,6 @@
 // Zmienna globalna dla PWA
 let deferredPrompt;
+const appVersion = (typeof self !== 'undefined' && self.APP_VERSION) ? self.APP_VERSION : '0.0.0';
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -330,9 +331,9 @@ if (faviconLink) {
 // 10. Tłumaczenia (PL / EN)
 const translations = {
     pl: {
-        hero_title: "Tworzę strony, które pracują dla Ciebie",
-        hero_desc: "Nie jestem wielką agencją. Jestem pasjonatem, który pomoże Ci zbudować prostą, skuteczną i ładną wizytówkę w internecie.",
-        hero_btn: "Sprawdź, co mogę zrobić",
+        hero_title: "Nowoczesne wizytówki online dla małych firm w całej Polsce",
+        hero_desc: "Prosta i skuteczna strona internetowa, która pomoże Ci zdobywać klientów bez abonamentu i zbędnych kosztów.",
+        hero_btn: "Zamów bezpłatną wycenę",
         about_title: "Dlaczego ja?",
         about_desc: "Programowanie to moja pasja, a nie rzemiosło z biura. Do każdego projektu podchodzę jak do własnego – dbam o detale, których inni mogą nie zauważyć. Jeśli potrzebujesz strony bez zbędnego skomplikowania, za to z \"duszą\" i pełnym wsparciem – dobrze trafiłeś.",
         stats_projects: "Zrealizowanych Projektów",
@@ -350,9 +351,9 @@ const translations = {
         form_btn: "Wyślij wiadomość"
     },
     en: {
-        hero_title: "I create websites that work for you",
-        hero_desc: "I am not a big agency. I am an enthusiast who will help you build a simple, effective, and beautiful online business card.",
-        hero_btn: "Check what I can do",
+        hero_title: "Modern online business cards for small companies across Poland",
+        hero_desc: "A simple, effective website that helps you win clients without subscriptions or unnecessary costs.",
+        hero_btn: "Get a free quote",
         about_title: "Why me?",
         about_desc: "Programming is my passion, not just an office craft. I treat every project like my own – I care about details that others might miss. If you need a website without unnecessary complexity, but with \"soul\" and full support – you've come to the right place.",
         stats_projects: "Completed Projects",
@@ -463,8 +464,54 @@ resetBtn.addEventListener('click', () => {
 // 13. Rejestracja Service Workera (PWA)
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
-        .then(registration => console.log('SW registered'))
-        .catch(err => console.log('SW failed', err));
+        .then(registration => {
+            registration.update();
+
+            const showUpdateBanner = (versionText) => {
+                let banner = document.getElementById('update-banner');
+                if (!banner) {
+                    banner = document.createElement('div');
+                    banner.id = 'update-banner';
+                    banner.className = 'update-banner';
+                    banner.innerHTML = `
+                        <div class="update-text"></div>
+                        <button type="button" class="update-btn">Zaktualizuj teraz</button>
+                    `;
+                    document.body.appendChild(banner);
+                }
+
+                const textEl = banner.querySelector('.update-text');
+                textEl.textContent = `Dostępna nowa wersja ${versionText}.`;
+                banner.classList.add('show');
+
+                const btn = banner.querySelector('.update-btn');
+                btn.onclick = () => {
+                    if (registration.waiting) {
+                        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                    }
+                };
+            };
+
+            if (registration.waiting && navigator.serviceWorker.controller) {
+                showUpdateBanner(appVersion);
+            }
+
+            registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                if (!newWorker) return;
+
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        showUpdateBanner(appVersion);
+                    }
+                });
+            });
+        })
+        .catch(() => {});
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+    });
 }
 
 // Obsługa kliknięcia w przycisk instalacji
@@ -483,7 +530,8 @@ if (installBtn) {
 // 14. Efekt Lupy w Stopce (Footer Magnifier)
 const versionText = document.getElementById('version-text');
 if (versionText) {
-    const text = versionText.innerText;
+    const text = appVersion ? `pro.v${appVersion} | Enterprise` : versionText.innerText;
+    versionText.innerText = text;
     // Rozbijamy tekst na litery, zachowując spacje jako &nbsp;
     versionText.innerHTML = text.split('').map(char => {
         return char === ' ' ? '<span style="display:inline">&nbsp;</span>' : `<span>${char}</span>`;

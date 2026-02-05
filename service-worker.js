@@ -1,12 +1,13 @@
 // service-worker.js
+importScripts('./version.js');
 
-const CACHE_NAME = 'enterprise-cache-v1.7.8'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
+const CACHE_NAME = `enterprise-cache-v${self.APP_VERSION || '0.0.0'}`; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
 const urlsToCache = [
   './',
   './index.html',
   './style.css',
   './script.js',
-  './portfolio-logos.js',
+  './version.js',
   './manifest.json',
   './privacy.html',
   // Zasoby zewnętrzne, które mogą powodować problemy
@@ -19,26 +20,18 @@ const urlsToCache = [
 
 // 1. Instalacja Service Workera i cache'owanie zasobów
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Service Worker: Otwarto cache. Próba zapisania zasobów.');
-        // Tworzymy tablicę obietnic (promises) dla każdego zasobu
         const cachePromises = urlsToCache.map(urlToCache => {
-          // Dla zasobów z innych domen używamy trybu 'no-cors', aby uniknąć błędów
           const request = new Request(urlToCache, { mode: 'no-cors' });
           return fetch(request)
             .then(response => cache.put(request, response))
-            .catch(err => {
-              console.warn(`Service Worker: Nie udało się zapisać w cache pliku: ${urlToCache}`, err);
-            });
+            .catch(() => {});
         });
 
-        // Czekamy, aż wszystkie (udane) operacje zapisu się zakończą
-        return Promise.all(cachePromises)
-          .then(() => {
-            console.log('Service Worker: Zakończono próbę zapisu zasobów.');
-          });
+        return Promise.all(cachePromises);
       })
   );
 });
@@ -50,22 +43,53 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
-            console.log('Service Worker: Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
-      );
+      ).then(() => self.clients.claim());
     })
   );
 });
 
-// 3. Przechwytywanie żądań (strategia "Cache, a potem sieć")
+// Pozwól aplikacji wymusić aktywację nowej wersji
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+// 3. Przechwytywanie żądań (HTML: network-first, zasoby: stale-while-revalidate)
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Jeśli zasób jest w cache, zwróć go. W przeciwnym razie, pobierz z sieci.
-        return response || fetch(event.request);
+  if (event.request.method !== 'GET') return;
+
+  const isNavigate = event.request.mode === 'navigate';
+  const acceptHeader = event.request.headers.get('accept') || '';
+  const isHtml = isNavigate || acceptHeader.includes('text/html');
+
+  event.respondWith((async () => {
+    if (isHtml) {
+      try {
+        const networkResponse = await fetch(event.request);
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(event.request, networkResponse.clone());
+        return networkResponse;
+      } catch (err) {
+        return caches.match(event.request);
+      }
+    }
+
+    const cachedResponse = await caches.match(event.request);
+    const fetchPromise = fetch(event.request)
+      .then(async networkResponse => {
+        const url = new URL(event.request.url);
+        if (url.origin === self.location.origin) {
+          const cache = await caches.open(CACHE_NAME);
+          cache.put(event.request, networkResponse.clone());
+        }
+        return networkResponse;
       })
-  );
+      .catch(() => null);
+
+    return cachedResponse || fetchPromise || Response.error();
+  })());
 });

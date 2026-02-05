@@ -1,7 +1,7 @@
 {
-  "name": "Enterprise - Profesjonalne Strony WWW",
-  "short_name": "Wizytówka online",
-  "description": "Profesjonalne tworzenie stron internetowych i pomoc techniczna.",
+  "name": "Wizytówki online dla małych firm | Enterprise",
+  "short_name": "Wizytówki",
+  "description": "Nowoczesne wizytówki online dla małych firm w całej Polsce. Szybkie, responsywne strony bez abonamentu.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",

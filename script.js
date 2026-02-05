@@ -1,3 +1,13 @@
+// Zmienna globalna dla PWA
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('install-btn');
+    if (installBtn) installBtn.style.display = 'inline-block';
+});
+
 document.addEventListener('click', function (e) {
     const anchor = e.target.closest('a[href^="#"]');
     if (anchor) {
@@ -452,14 +462,21 @@ resetBtn.addEventListener('click', () => {
 
 // 13. Rejestracja Service Workera (PWA)
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then(registration => {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            })
-            .catch(err => {
-                console.log('ServiceWorker registration failed: ', err);
+    navigator.serviceWorker.register('./service-worker.js')
+        .then(registration => console.log('SW registered'))
+        .catch(err => console.log('SW failed', err));
+}
+
+// Obsługa kliknięcia w przycisk instalacji
+const installBtn = document.getElementById('install-btn');
+if (installBtn) {
+    installBtn.addEventListener('click', () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                deferredPrompt = null;
             });
+        }
     });
 }
 

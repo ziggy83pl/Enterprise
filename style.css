@@ -30,12 +30,20 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text);
     line-height: 1.6;
     background: var(--bg);
     transition: background-color 0.8s ease, color 0.3s ease;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
 
 h1, h2, h3 {
@@ -437,4 +445,26 @@ footer a { color: var(--accent); text-decoration: none; }
     color: var(--accent);
     text-shadow: 0 5px 10px rgba(0,0,0,0.2);
     font-weight: 700;
+}
+
+/* === Przycisk instalacji PWA === */
+.btn-install {
+    margin-top: 15px;
+    background-color: transparent;
+    border: 1px solid rgba(153, 153, 153, 0.3);
+    color: #999;
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    display: none; /* Domyślnie ukryty, JS go pokaże */
+}
+
+.btn-install:hover {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }

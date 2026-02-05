@@ -2,6 +2,11 @@
 
 Ten plik służy do śledzenia postępów prac oraz jako lista kontrolna (checklist) dla przyszłych projektów, aby zachować wysoki standard techniczny.
 
+## [1.7.5] - UI Consistency - 2026-05-22
+### Zmieniono (UI)
+- **Portfolio Logos:** Podpisy pod logotypami (`.logo-label`) są teraz widoczne na wszystkich szerokościach ekranu, a nie tylko na urządzeniach mobilnych.
+- **Spójność:** Zmiana została wprowadzona we wszystkich projektach (`Enterprise`, `RentMaster`, `Prodom`, `Paweł Szczęsny`) dla zachowania jednolitego wyglądu.
+
 ## [1.7.4] - Footer Magnifier - 2026-05-22
 ### Dodano (UI)
 - **Magnifying Glass Effect:** Dodano animację "lupy" do numeru wersji w stopce.

@@ -1,6 +1,6 @@
 // service-worker.js
 
-const CACHE_NAME = 'enterprise-cache-v1.7.4'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
+const CACHE_NAME = 'enterprise-cache-v1.7.8'; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
 const urlsToCache = [
   './',
   './index.html',
@@ -13,9 +13,8 @@ const urlsToCache = [
   'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap',
   'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1920&auto=format&fit=crop',
   // Ikony PWA
-  'https://via.placeholder.com/64x64/10b981/ffffff.png?text=E',
-  'https://via.placeholder.com/192x192/10b981/ffffff.png?text=Enterprise',
-  'https://via.placeholder.com/512x512/10b981/ffffff.png?text=Enterprise'
+  './logo/icon-192.png',
+  './logo/icon-512.png'
 ];
 
 // 1. Instalacja Service Workera i cache'owanie zasobów

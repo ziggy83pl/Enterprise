@@ -1,7 +1,7 @@
 // service-worker.js
 importScripts('./version.js');
 
-const CACHE_NAME = `enterprise-cache-v${self.APP_VERSION || '0.0.0'}`; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
+const CACHE_NAME = `enterprise-cache-v${self.APP_VERSION || '4.0.0'}`; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
 const urlsToCache = [
   './',
   './index.html',

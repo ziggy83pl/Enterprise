@@ -1,8 +1,9 @@
 {
   "name": "Wizytówki online dla małych firm | Enterprise",
-  "short_name": "Wizytówki",
+  "short_name": "Enterprise",
   "description": "Nowoczesne wizytówki online dla małych firm w całej Polsce. Szybkie, responsywne strony bez abonamentu.",
-  "start_url": "./index.html",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#10b981",

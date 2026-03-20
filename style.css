@@ -20,7 +20,7 @@
 
 [data-theme="dark"] {
     --bg: #02010a; /* Jeszcze głębsza czerń/granat */
-    --text: #e0e6ed; /* Chłodna biel */
+    --text: #2d4a6b; /* Chłodna biel */
     --accent: #34d399;
     --primary: #34d399;
     --accent-dark: #065f46;
@@ -242,7 +242,7 @@ nav.scrolled {
     transform: rotate(360deg);
 }
 
-#share-btn {
+#nav-share-btn {
     margin-right: 10px;
 }
 
@@ -642,7 +642,7 @@ footer a { color: var(--accent); text-decoration: none; }
         padding-bottom: 20px;
     }
 
-    #theme-toggle, #share-btn { margin-right: 0; }
+    #theme-toggle, #nav-share-btn { margin-right: 0; }
     .scroll-top-btn { display: none !important; }
 }
 
@@ -773,4 +773,330 @@ footer a { color: var(--accent); text-decoration: none; }
 
 .update-btn:hover {
     background: var(--cta-hover);
+}
+
+/* Glass Button (Hero Share) */
+.btn-glass {
+    display: block;
+    width: fit-content;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.btn-glass:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================
+   CENY W PAKIETACH
+   ========================================= */
+.pricing-price {
+    font-size: 1rem;
+    color: var(--text-muted, #888);
+    margin: 12px 0 18px;
+    font-weight: 400;
+}
+
+.pricing-price strong {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.btn-pricing {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-pricing:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.pricing-card.featured .btn-pricing {
+    background: #fff;
+    color: var(--accent);
+}
+
+.pricing-card.featured .btn-pricing:hover {
+    background: rgba(255,255,255,0.85);
+}
+
+/* =========================================
+   KARTY SOLUTION Z IKONAMI
+   ========================================= */
+.solution-card i {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: block;
+}
+
+.solution-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-top: 8px;
+    opacity: 0.85;
+}
+
+/* =========================================
+   RODO - CHECKBOX ZGODY
+   ========================================= */
+.form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85rem;
+    opacity: 0.8;
+    line-height: 1.5;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.form-consent input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+}
+
+.form-consent a {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* =========================================
+   NUMER TELEFONU W KONTAKCIE
+   ========================================= */
+.contact-details a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.contact-details a:hover {
+    opacity: 0.75;
+}
+
+.contact-details .fa-phone-alt {
+    margin-right: 6px;
+}
+
+/* =========================================
+   CTA BUTTON W NAWIGACJI
+   ========================================= */
+.btn-sm-cta {
+    padding: 9px 18px !important;
+    font-size: 0.85rem !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+}
+
+/* =========================================
+   SEKCJA OPINII KLIENTÓW
+   ========================================= */
+.testimonials-section {
+    padding: 80px 0;
+    background: var(--section-alt-bg, rgba(16, 185, 129, 0.04));
+}
+
+.section-label {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.testimonials-section h2,
+.faq-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 50px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.testimonial-card {
+    background: var(--card-bg, #fff);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border-color, rgba(0,0,0,0.08));
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.testimonial-stars {
+    color: #f59e0b;
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+}
+
+.testimonial-text {
+    font-size: 0.97rem;
+    line-height: 1.7;
+    font-style: italic;
+    opacity: 0.85;
+    margin-bottom: 20px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.testimonial-author strong {
+    display: block;
+    font-size: 0.95rem;
+}
+
+.testimonial-author span {
+    font-size: 0.82rem;
+    opacity: 0.6;
+}
+
+/* =========================================
+   SEKCJA FAQ
+   ========================================= */
+.faq-section {
+    padding: 80px 0;
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    border: 1px solid var(--border-color, rgba(0,0,0,0.1));
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg, #fff);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 20px 24px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    color: inherit;
+    font-family: inherit;
+    transition: color 0.2s;
+}
+
+.faq-question:hover {
+    color: var(--accent);
+}
+
+.faq-icon {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    line-height: 1;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 24px;
+}
+
+.faq-answer p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    padding-bottom: 20px;
+}
+
+/* Stan otwarty */
+.faq-item.open .faq-answer {
+    max-height: 300px;
+    padding-top: 0;
+}
+
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-item.open .faq-question {
+    color: var(--accent);
+}
+
+/* Highlight tekstu akcentowego w H1 */
+.accent-text {
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .testimonials-section,
+    .faq-section {
+        padding: 50px 0;
+    }
+    .faq-question {
+        font-size: 0.95rem;
+        padding: 16px 18px;
+    }
 }

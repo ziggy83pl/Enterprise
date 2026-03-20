@@ -176,9 +176,11 @@ if (contactForm) {
 }
 
 // 2. Przycisk udostępniania
-document.getElementById('share-btn').addEventListener('click', () => {
-    if (navigator.share) navigator.share({ title: document.title, url: window.location.href }).catch(console.error);
-    else navigator.clipboard.writeText(window.location.href).then(() => alert('Link skopiowany!')).catch(() => alert('Błąd kopiowania'));
+document.querySelectorAll('.share-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (navigator.share) navigator.share({ title: document.title, url: window.location.href }).catch(console.error);
+        else navigator.clipboard.writeText(window.location.href).then(() => alert('Link skopiowany!')).catch(() => alert('Błąd kopiowania'));
+    });
 });
 
 // 3. Obsługa Dark Mode (Ciemny motyw)

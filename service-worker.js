@@ -1,7 +1,7 @@
 // service-worker.js
 importScripts('./version.js');
 
-const CACHE_NAME = `enterprise-cache-v${self.APP_VERSION || '4.0.0'}`; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
+const CACHE_NAME = `enterprise-cache-v${self.APP_VERSION || '0.0.0'}`; // Zawsze zmieniaj tę wersję po dużych aktualizacjach!
 const urlsToCache = [
   './',
   './index.html',
@@ -10,9 +10,6 @@ const urlsToCache = [
   './version.js',
   './manifest.json',
   './privacy.html',
-  // Zasoby zewnętrzne, które mogą powodować problemy
-  'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1920&auto=format&fit=crop',
   // Ikony PWA
   './logo/icon-192.png',
   './logo/icon-512.png'
@@ -20,14 +17,17 @@ const urlsToCache = [
 
 // 1. Instalacja Service Workera i cache'owanie zasobów
 self.addEventListener('install', event => {
-  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         const cachePromises = urlsToCache.map(urlToCache => {
-          const request = new Request(urlToCache, { mode: 'no-cors' });
+          const request = new Request(urlToCache);
           return fetch(request)
-            .then(response => cache.put(request, response))
+            .then(response => {
+              if (response.ok) {
+                return cache.put(request, response);
+              }
+            })
             .catch(() => {});
         });
 
@@ -62,6 +62,9 @@ self.addEventListener('message', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin !== self.location.origin) return;
+
   const isNavigate = event.request.mode === 'navigate';
   const acceptHeader = event.request.headers.get('accept') || '';
   const isHtml = isNavigate || acceptHeader.includes('text/html');
@@ -74,7 +77,7 @@ self.addEventListener('fetch', event => {
         cache.put(event.request, networkResponse.clone());
         return networkResponse;
       } catch (err) {
-        return caches.match(event.request);
+        return caches.match(event.request) || caches.match('./index.html');
       }
     }
 

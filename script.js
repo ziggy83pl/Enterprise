@@ -1,6 +1,7 @@
 // Zmienna globalna dla PWA
 let deferredPrompt;
 const appVersion = (typeof self !== 'undefined' && self.APP_VERSION) ? self.APP_VERSION : '0.0.0';
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -72,22 +73,9 @@ const contactForm = document.getElementById('contact-form');
 const contactWrapper = document.querySelector('.contact-form-wrapper') || contactForm;
 
 if (contactForm) {
-    const formInputs = contactForm.querySelectorAll('input, textarea');
-    
-    // A. Przywracanie danych z LocalStorage (Pamięć formularza)
-    const savedData = JSON.parse(localStorage.getItem('contactFormData') || '{}');
-    formInputs.forEach(input => {
-        if (savedData[input.name]) input.value = savedData[input.name];
-    });
+    localStorage.removeItem('contactFormData');
 
-    // B. Auto-save (Zapisywanie w locie)
-    contactForm.addEventListener('input', () => {
-        const formData = {};
-        formInputs.forEach(input => formData[input.name] = input.value);
-        localStorage.setItem('contactFormData', JSON.stringify(formData));
-    });
-
-    // C. Formatowanie telefonu (Automatyczne spacje)
+    // Formatowanie telefonu (Automatyczne spacje)
     const phoneInput = contactForm.querySelector('input[name="telefon"]');
     phoneInput?.addEventListener('input', (e) => {
         let num = e.target.value.replace(/\D/g, '').substring(0, 9);
@@ -96,7 +84,7 @@ if (contactForm) {
         else e.target.value = num;
     });
 
-    // D. Wysyłka formularza
+        // Wysyłka formularza
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -136,9 +124,6 @@ if (contactForm) {
         })
         .then(res => {
             if (res.ok) {
-                // Czyścimy pamięć podręczną po sukcesie
-                localStorage.removeItem('contactFormData');
-
                 // Ukrywamy formularz i pokazujemy sukces
                 const originalContent = Array.from(contactWrapper.children);
                 originalContent.forEach(child => child.style.display = 'none');
@@ -224,6 +209,11 @@ function runTypewriter(text) {
 
     clearTimeout(typewriterTimeout); // Zatrzymaj poprzednią animację
     heroHeader.textContent = ''; // Wyczyść tekst, aby uniknąć duplikatów
+
+    if (prefersReducedMotion) {
+        heroHeader.textContent = text;
+        return;
+    }
     
     let charIndex = 0;
     function type() {
@@ -270,19 +260,40 @@ if (statsSection) {
 // 7. Cookie Banner (Polityka Prywatności)
 const cookieBanner = document.getElementById('cookie-banner');
 const acceptCookiesBtn = document.getElementById('accept-cookies');
+const GA_MEASUREMENT_ID = 'G-ET7CBLPFML';
 
-if (!localStorage.getItem('cookiesAccepted')) {
-    setTimeout(() => cookieBanner.classList.add('show'), 1000); // Pokaż po 1s
+function loadAnalytics() {
+    if (window.gtag || document.querySelector(`script[src*="${GA_MEASUREMENT_ID}"]`)) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+        window.dataLayer.push(arguments);
+    };
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
 }
 
-acceptCookiesBtn.addEventListener('click', () => {
+if (!localStorage.getItem('cookiesAccepted')) {
+    setTimeout(() => cookieBanner?.classList.add('show'), 1000); // Pokaż po 1s
+} else {
+    loadAnalytics();
+}
+
+acceptCookiesBtn?.addEventListener('click', () => {
     localStorage.setItem('cookiesAccepted', 'true');
-    cookieBanner.classList.remove('show');
+    cookieBanner?.classList.remove('show');
+    loadAnalytics();
 });
 
 // 9. Favicon Animation (Loader)
 const faviconLink = document.querySelector("link[rel~='icon']");
-if (faviconLink) {
+if (faviconLink && !prefersReducedMotion) {
     const canvas = document.createElement('canvas');
     canvas.width = 32;
     canvas.height = 32;
@@ -543,6 +554,7 @@ if (versionText) {
     let isAnimating = false;
 
     const runMagnifyAnimation = () => {
+        if (prefersReducedMotion) return;
         if (isAnimating) return;
         isAnimating = true;
         

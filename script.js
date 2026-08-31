@@ -302,18 +302,15 @@ if (faviconLink && !prefersReducedMotion) {
     let intervalId;
 
     function drawFavicon() {
-        // Tło (zielony kwadrat)
         ctx.fillStyle = '#10b981';
         ctx.fillRect(0, 0, 32, 32);
 
-        // Litera "E"
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 22px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('E', 16, 17);
 
-        // Spinner (biały łuk)
         ctx.beginPath();
         ctx.lineWidth = 3;
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
@@ -324,14 +321,11 @@ if (faviconLink && !prefersReducedMotion) {
         faviconLink.href = canvas.toDataURL('image/png');
     }
 
-    // Uruchom animację co 100ms
     intervalId = setInterval(drawFavicon, 100);
 
-    // Zatrzymaj animację 1.5 sekundy po pełnym załadowaniu strony
     window.addEventListener('load', () => {
         setTimeout(() => {
             clearInterval(intervalId);
-            // Rysujemy czystą ikonę bez spinnera na koniec
             ctx.fillStyle = '#10b981';
             ctx.fillRect(0, 0, 32, 32);
             ctx.fillStyle = '#ffffff';
@@ -585,4 +579,151 @@ if (versionText) {
     }, { threshold: 0.5 });
     
     observer.observe(versionText);
+}
+
+// 15. Logika Interaktywnego Kalkulatora Wyceny
+const calcTypeInputs = document.querySelectorAll('input[name="calc-type"]');
+const calcAddonInputs = document.querySelectorAll('.calc-addon');
+const calcTotalPriceEl = document.getElementById('calc-total-price');
+const calcApplyBtn = document.getElementById('calc-apply-btn');
+
+function updateCalculatorTotal() {
+    let total = 0;
+    let selectedTypeName = '';
+
+    calcTypeInputs.forEach(input => {
+        const label = input.closest('.calc-radio-label');
+        if (input.checked) {
+            total += parseInt(input.value, 10);
+            selectedTypeName = input.getAttribute('data-name');
+            if (label) label.classList.add('active');
+        } else {
+            if (label) label.classList.remove('active');
+        }
+    });
+
+    const selectedAddons = [];
+    calcAddonInputs.forEach(input => {
+        if (input.checked) {
+            total += parseInt(input.value, 10);
+            selectedAddons.push(input.getAttribute('data-name'));
+        }
+    });
+
+    if (calcTotalPriceEl) {
+        calcTotalPriceEl.textContent = `${total} zł`;
+    }
+
+    return { total, selectedTypeName, selectedAddons };
+}
+
+if (calcTypeInputs.length > 0) {
+    calcTypeInputs.forEach(input => input.addEventListener('change', updateCalculatorTotal));
+    calcAddonInputs.forEach(input => input.addEventListener('change', updateCalculatorTotal));
+
+    if (calcApplyBtn) {
+        calcApplyBtn.addEventListener('click', () => {
+            const { total, selectedTypeName, selectedAddons } = updateCalculatorTotal();
+            const messageTextarea = document.querySelector('textarea[name="wiadomosc"]');
+            
+            let messageContent = `Dzień dobry, interesuje mnie wycena i realizacja:\n- ${selectedTypeName}`;
+            if (selectedAddons.length > 0) {
+                messageContent += `\n- Dodatki: ${selectedAddons.join(', ')}`;
+            }
+            messageContent += `\n- Wycena z kalkulatora: ~${total} zł`;
+
+            if (messageTextarea) {
+                messageTextarea.value = messageContent;
+                messageTextarea.focus();
+            }
+
+            const contactSection = document.getElementById('kontakt');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+}
+
+// 16. Obsługa Modala Polityki Prywatności
+const privacyModal = document.getElementById('privacy-modal');
+const privacyCloseBtn = document.getElementById('privacy-modal-close');
+const privacyOverlay = privacyModal ? privacyModal.querySelector('.privacy-modal-overlay') : null;
+
+function openPrivacyModal(e) {
+    if (e) e.preventDefault();
+    if (privacyModal) {
+        privacyModal.classList.add('open');
+        privacyModal.setAttribute('aria-hidden', 'false');
+    }
+}
+
+function closePrivacyModal() {
+    if (privacyModal) {
+        privacyModal.classList.remove('open');
+        privacyModal.setAttribute('aria-hidden', 'true');
+    }
+}
+
+document.querySelectorAll('a[href="privacy.html"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+            openPrivacyModal(e);
+        }
+    });
+});
+
+if (privacyCloseBtn) privacyCloseBtn.addEventListener('click', closePrivacyModal);
+if (privacyOverlay) privacyOverlay.addEventListener('click', closePrivacyModal);
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && privacyModal && privacyModal.classList.contains('open')) {
+        closePrivacyModal();
+    }
+});
+
+// 17. Obsługa Horyzontalnego Slidera Opinii
+const testimTrack = document.getElementById('testimonials-track');
+const testimPrev = document.getElementById('testim-prev');
+const testimNext = document.getElementById('testim-next');
+
+if (testimTrack && testimPrev && testimNext) {
+    const cardStep = 360;
+
+    testimNext.addEventListener('click', () => {
+        testimTrack.scrollBy({ left: cardStep, behavior: 'smooth' });
+    });
+
+    testimPrev.addEventListener('click', () => {
+        testimTrack.scrollBy({ left: -cardStep, behavior: 'smooth' });
+    });
+
+    // Automatyczne płynne przewijanie co 4.5 sekundy
+    let testimAutoScroll = setInterval(() => {
+        if (testimTrack.scrollLeft + testimTrack.clientWidth >= testimTrack.scrollWidth - 15) {
+            testimTrack.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            testimTrack.scrollBy({ left: cardStep, behavior: 'smooth' });
+        }
+    }, 4500);
+
+    testimTrack.addEventListener('mouseenter', () => clearInterval(testimAutoScroll));
+}
+
+// 18. Dynamiczna obsługa przycisku WhatsApp (przenoszenie treści formularza/wyceny)
+const whatsappBtn = document.getElementById('whatsapp-contact-btn');
+if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', (e) => {
+        const messageTextarea = document.querySelector('textarea[name="wiadomosc"]');
+        const userMessage = messageTextarea ? messageTextarea.value.trim() : '';
+        
+        const basePhone = '48574322909';
+        let defaultText = 'Dzień dobry, chciałbym zapytać o wycenę i realizację strony internetowej.';
+        
+        if (userMessage.length > 0) {
+            defaultText = userMessage;
+        }
+
+        const targetUrl = `https://wa.me/${basePhone}?text=${encodeURIComponent(defaultText)}`;
+        whatsappBtn.href = targetUrl;
+    });
 }

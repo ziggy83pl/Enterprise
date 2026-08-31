@@ -60,7 +60,7 @@ h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
 }
 
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
 header {
     padding: 40px 0 100px 0;
@@ -140,9 +140,7 @@ nav.scrolled {
     text-shadow: -2px 0 #00fff9; /* Cyan */
     clip-path: inset(0 0 0 0);
     animation: glitch-anim-2 2s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim-1 {
+}@keyframes glitch-anim-1 {
     0% { clip-path: inset(20% 0 80% 0); }
     20% { clip-path: inset(60% 0 10% 0); }
     40% { clip-path: inset(40% 0 50% 0); }
@@ -176,7 +174,87 @@ nav.scrolled {
     cursor: pointer;
     color: #ffffff;
 }
-.hero-content p { font-size: 1.25rem; color: #e0e0e0; margin-bottom: 30px; max-width: 600px; }
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+nav.scrolled a {
+    color: var(--text);
+}
+
+nav.scrolled a:hover {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-sm {
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: 600;
+    border: 1px solid var(--accent);
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-sm:hover {
+    background-color: var(--accent);
+    color: white;
+}
+
+.btn-sm-cta {
+    padding: 9px 18px !important;
+    font-size: 0.85rem !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+}
+
+#theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-right: 5px;
+    transition: transform 0.5s ease;
+}
+
+[data-theme="dark"] #theme-toggle {
+    transform: rotate(360deg);
+}
+
+#nav-share-btn {
+    margin-right: 5px;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
 
 .hero-benefits {
     list-style: none;
@@ -221,33 +299,6 @@ nav.scrolled {
     background: var(--cta-hover);
     transform: translateY(-2px);
 }
-
-.btn-sm { text-decoration: none; color: var(--accent); font-weight: 600; border: 1px solid var(--accent); padding: 8px 16px; border-radius: 6px; transition: background-color 0.3s, color 0.3s; background-color: transparent; cursor: pointer; font-family: inherit; }
-
-.btn-sm:hover {
-    background-color: var(--accent);
-    color: white;
-}
-
-#theme-toggle {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    transition: transform 0.5s ease;
-}
-
-[data-theme="dark"] #theme-toggle {
-    transform: rotate(360deg);
-}
-
-#nav-share-btn {
-    margin-right: 10px;
-}
-
-.about { padding: 80px 0; border-top: 1px solid var(--border); transition: border-color 0.3s ease; }
-.about h2 { margin-bottom: 20px; }
 
 .problem-section {
     padding: 70px 0;
@@ -304,6 +355,36 @@ nav.scrolled {
     box-shadow: 0 14px 28px rgba(6, 95, 70, 0.18);
 }
 
+.about { 
+    padding: 80px 0; 
+    text-align: center;
+    border-top: 1px solid var(--border); 
+    transition: border-color 0.3s ease; 
+}
+
+.about h2 { 
+    margin-bottom: 20px; 
+    font-size: 2.2rem;
+    color: var(--accent);
+}
+
+.about p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+[data-theme="dark"] .about h2 {
+    color: #0f172a !important;
+}
+
+[data-theme="dark"] .about p {
+    color: #1f2937 !important;
+}
+
 .benefits-section {
     padding: 70px 0;
     background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -336,12 +417,6 @@ nav.scrolled {
 .pricing-section h2 {
     margin-bottom: 28px;
     color: var(--accent-dark);
-}
-
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 24px;
 }
 
 .pricing-card {
@@ -478,7 +553,8 @@ nav.scrolled {
 .card:hover { transform: translateY(-10px); box-shadow: 0 12px 20px rgba(0,0,0,0.1), 0 0 15px var(--accent); border-color: var(--accent); }
 .card h3 { margin-bottom: 15px; color: var(--accent); }
 
-.portfolio { padding: 80px 0; }
+.portfolio { padding: 80px 0; text-align: center; }
+.logo-header { margin-bottom: 25px; font-size: 2.2rem; }
 .portfolio-links p { margin: 10px 0; font-size: 1.1rem; }
 
 /* Custom Tooltip (Dymek z opisem) - Uogólniona klasa */
@@ -491,9 +567,9 @@ nav.scrolled {
     position: absolute;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Efekt sprężystości */
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     pointer-events: none;
-    z-index: 1100; /* Wyższy index, aby było nad menu */
+    z-index: 1100;
 }
 
 /* Tekst dymka */
@@ -530,19 +606,149 @@ nav.scrolled {
     transform: translateX(-50%) translateY(0);
 }
 
-.contact { padding: 100px 0; text-align: center; background: var(--contact-bg); color: var(--contact-text); transition: background-color 0.3s ease, color 0.3s ease; }
-.contact h2 { margin-bottom: 20px; }
-.contact-details { margin-top: 30px; font-size: 1.2rem; }
-.contact-details a { color: var(--contact-text); text-decoration: underline; }
+/* =========================================
+   SEKCJA KONTAKT I FORMULARZ
+   ========================================= */
+.contact {
+    padding: 100px 0;
+    text-align: center;
+    background: var(--contact-bg, var(--card-inner));
+    color: var(--contact-text, var(--text));
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-.contact-form { max-width: 600px; margin: 30px auto 0; display: flex; flex-direction: column; gap: 15px; text-align: left; }
-.contact-form input, .contact-form textarea { width: 100%; padding: 15px; border: none; border-radius: 8px; font-family: inherit; font-size: 1rem; }
-.contact-form button { border: none; cursor: pointer; font-size: 1rem; transition: opacity 0.3s; }
-.contact-form button:disabled { opacity: 0.7; cursor: not-allowed; }
+.contact h2 {
+    margin-bottom: 20px;
+}
 
-footer { padding: 40px; text-align: center; font-size: 0.9rem; color: #999; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-footer a { color: var(--accent); text-decoration: none; }
+.contact-details {
+    margin-top: 30px;
+    margin-bottom: 35px;
+    font-size: 1.2rem;
+}
 
+.contact-buttons-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contact-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.btn-call {
+    background: #2563eb;
+    color: #ffffff !important;
+}
+
+.btn-call:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
+}
+
+.btn-whatsapp {
+    background: #25d366;
+    color: #ffffff !important;
+}
+
+.btn-whatsapp:hover {
+    background: #1ea952;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp i,
+.btn-call i {
+    font-size: 1.3rem;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid var(--border, rgba(0,0,0,0.1));
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.contact-form button {
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+.contact-form button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   STOPKA (FOOTER)
+   ========================================= */
+footer {
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+    background: var(--nav-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-top: 1px solid var(--border, rgba(0,0,0,0.06));
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   PRZYCISK SCROLL-TOP
+   ========================================= */
 .scroll-top-btn {
     position: fixed;
     bottom: 30px;
@@ -574,7 +780,6 @@ footer a { color: var(--accent); text-decoration: none; }
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
-
 .fade-in-section {
     opacity: 0;
     transform: translateY(30px);
@@ -778,11 +983,15 @@ footer a { color: var(--accent); text-decoration: none; }
 
 .update-btn:hover {
     background: var(--cta-hover);
+    opacity: 1;
+    transform: translateY(0);
 }
+
+
 
 /* Glass Button (Hero Share) */
 .btn-glass {
-    display: block;
+    display: inline-block;
     width: fit-content;
     margin-top: 20px;
     background: rgba(255, 255, 255, 0.1);
@@ -920,7 +1129,7 @@ footer a { color: var(--accent); text-decoration: none; }
 }
 
 /* =========================================
-   SEKCJA OPINII KLIENTÓW
+   SEKCJA OPINII KLIENTÓW (SLIDER HORYZONTALNY)
    ========================================= */
 .testimonials-section {
     padding: 80px 0;
@@ -941,13 +1150,92 @@ footer a { color: var(--accent); text-decoration: none; }
 .faq-section h2 {
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 28px;
+.testimonials-subtitle {
+    text-align: center;
+    color: var(--text-muted, #777);
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+.testimonials-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.testimonials-slider-track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 15px 5px 25px 5px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+}
+
+.testimonials-slider-track::-webkit-scrollbar {
+    height: 6px;
+}
+
+.testimonials-slider-track::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+.testimonials-slider-track .testimonial-card {
+    flex: 0 0 340px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-width: 650px) {
+    .testimonials-slider-track .testimonial-card {
+        flex: 0 0 85%;
+    }
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--card-bg, #ffffff);
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.slider-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-prev { left: -18px; }
+.slider-next { right: -18px; }
+
+@media (max-width: 768px) {
+    .slider-prev { left: -8px; }
+    .slider-next { right: -8px; }
 }
 
 .testimonial-card {
@@ -1076,20 +1364,6 @@ footer a { color: var(--accent); text-decoration: none; }
     padding-bottom: 20px;
 }
 
-/* Stan otwarty */
-.faq-item.open .faq-answer {
-    max-height: 300px;
-    padding-top: 0;
-}
-
-.faq-item.open .faq-icon {
-    transform: rotate(45deg);
-}
-
-.faq-item.open .faq-question {
-    color: var(--accent);
-}
-
 /* Highlight tekstu akcentowego w H1 */
 .accent-text {
     color: var(--accent);
@@ -1125,4 +1399,709 @@ footer a { color: var(--accent); text-decoration: none; }
         font-size: 0.95rem;
         padding: 16px 18px;
     }
+}
+
+/* =========================================
+   INTERAKTYWNY KALKULATOR WYCENY
+   ========================================= */
+.calculator-section {
+    padding: 80px 0;
+    background: var(--light-bg);
+}
+
+.calc-subtitle {
+    text-align: center;
+    color: var(--text-muted, #666);
+    margin-bottom: 35px;
+    font-size: 1.05rem;
+}
+
+.calc-wrapper {
+    background: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color, rgba(0,0,0,0.08));
+}
+
+.calc-group {
+    margin-bottom: 30px;
+}
+
+.calc-group-title {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+.calc-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.calc-radio-label {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid var(--border-color, #e5e7eb);
+    border-radius: 12px;
+    padding: 18px;
+    transition: all 0.3s ease;
+    background: var(--card-bg, #ffffff);
+    display: block;
+}
+
+.calc-radio-label input {
+    position: absolute;
+    opacity: 0;
+}
+
+.calc-radio-label:hover,
+.calc-radio-label.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    transform: translateY(-2px);
+}
+
+.calc-radio-label.active {
+    background: rgba(16, 185, 129, 0.04);
+}
+
+.calc-option-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.calc-option-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.calc-option-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted, #777);
+}
+
+.calc-option-price {
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: 5px;
+    font-size: 1.1rem;
+}
+
+.calc-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+}
+
+.calc-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color, #e5e7eb);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--card-bg, #ffffff);
+}
+
+.calc-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+}
+
+.calc-checkbox-label:hover {
+    border-color: var(--accent);
+}
+
+.calc-addon-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+.calc-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 2px dashed var(--border-color, #e5e7eb);
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.calc-total-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.calc-total-box span {
+    font-size: 0.9rem;
+    color: var(--text-muted, #666);
+}
+
+.calc-total-box strong {
+    font-size: 2.2rem;
+    color: var(--accent);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.calc-apply-btn {
+    padding: 14px 28px;
+    font-size: 1.05rem;
+}
+
+/* =========================================
+   SEKCJA GWARANCJI I ZAUFANIA
+   ========================================= */
+.guarantee-section {
+    padding: 80px 0;
+    background: var(--bg);
+}
+
+.guarantee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.guarantee-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color, rgba(0,0,0,0.08));
+    border-radius: 14px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.guarantee-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(16, 185, 129, 0.15);
+    border-color: var(--accent);
+}
+
+.guarantee-icon {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 18px;
+}
+
+.guarantee-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.guarantee-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted, #555);
+    line-height: 1.6;
+}
+
+/* Wzmocniony kontrast dla sekcji "Dlaczego warto współpracować?" w Dark Mode */
+[data-theme="dark"] .guarantee-section {
+    background: transparent;
+}
+
+[data-theme="dark"] .guarantee-card {
+    background: var(--card-inner, linear-gradient(145deg, #100860, #0a0440)) !important;
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.12)) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .guarantee-card h3 {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+[data-theme="dark"] .guarantee-card p {
+    color: #f1f5f9 !important;
+    opacity: 0.95;
+}
+
+[data-theme="dark"] .guarantee-icon {
+    color: var(--accent, #34d399) !important;
+}
+
+/* =========================================
+   MODAL POLITYKI PRYWATNOŚCI
+   ========================================= */
+.privacy-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.privacy-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.privacy-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.privacy-modal-content {
+    position: relative;
+    background: var(--card-bg, #ffffff);
+    color: var(--text);
+    width: 90%;
+    max-width: 650px;
+    max-height: 85vh;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    z-index: 2;
+}
+
+.privacy-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text);
+    line-height: 1;
+}
+
+.privacy-modal-body h3 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.privacy-modal-body p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+/* =========================================
+   MOBILNY PASEK SZYBKIEGO KONTAKTU
+   ========================================= */
+.mobile-quick-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
+    padding: 8px 12px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 767px) {
+    .mobile-quick-bar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 8px;
+    }
+    body {
+        padding-bottom: 60px;
+    }
+}
+
+.quick-bar-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 5px;
+    border-radius: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    gap: 4px;
+    transition: background 0.2s ease;
+}
+
+.quick-bar-btn i {
+    font-size: 1.1rem;
+}
+
+.quick-call { background: #2563eb; }
+.quick-wa { background: #16a34a; }
+.quick-quote { background: var(--accent, #10b981); }
+
+.quick-bar-btn:hover {
+    filter: brightness(1.1);
+}
+
+/* Ulepszony Glow Hover dla kart */
+.pricing-card:hover,
+.benefit-item:hover,
+.solution-card:hover {
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.18);
+    transition: all 0.3s ease;
+}
+
+/* =========================================
+   STYLIZACJA PAKIETU VIP ALL-IN-ONE (BANER PEŁNEJ SZEROKOŚCI POD 3 PAKIETAMI)
+   ========================================= */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+@media (min-width: 992px) {
+    .pricing-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .vip-card {
+        grid-column: 1 / -1;
+        margin-top: 15px;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 40px;
+        align-items: center;
+        padding: 40px !important;
+        text-align: left;
+    }
+
+    .vip-card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .vip-card-body ul {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px 25px;
+    }
+}
+
+.vip-card {
+    border: 2px solid #f59e0b !important;
+    background: linear-gradient(145deg, #ffffff, rgba(245, 158, 11, 0.08)) !important;
+    box-shadow: 0 12px 35px rgba(245, 158, 11, 0.18);
+}
+
+.vip-card ul li {
+    color: var(--text, #333333);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.vip-card ul li strong {
+    color: inherit;
+    font-weight: 700;
+}
+
+/* KONTRAST I CZYTELNOŚĆ W TRYBIE CIEMNYM (DARK MODE) */
+[data-theme="dark"] .vip-card {
+    background: linear-gradient(145deg, #0f0a33, rgba(245, 158, 11, 0.22)) !important;
+    border-color: #fbbf24 !important;
+    box-shadow: 0 12px 35px rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="dark"] .vip-card ul li,
+[data-theme="dark"] .pricing-card ul li {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .vip-card ul li strong,
+[data-theme="dark"] .pricing-card ul li strong {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .pricing-price {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .vip-card .pricing-price strong {
+    color: #fbbf24 !important;
+}
+
+.vip-badge {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.btn-vip {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #ffffff !important;
+    border: none;
+    margin-top: 15px;
+}
+
+.btn-vip:hover {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+    transform: translateY(-2px);
+}
+
+.favicon-explain {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #d97706;
+    font-weight: 600;
+    cursor: help;
+    margin-top: 2px;
+    text-decoration: underline dotted;
+}
+
+[data-theme="dark"] .favicon-explain {
+    color: #fbbf24 !important;
+}
+
+/* ==========================================================================
+   KOMPLETNA OPTYMALIZACJA KONTRASTU I CZYTELNOŚCI W TRYBIE CIEMNYM (DARK MODE)
+   ========================================================================== */
+[data-theme="dark"] body {
+    color: #f3f4f6;
+    background-color: #02010a;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] p {
+    color: #e2e8f0;
+}
+
+/* 1. SEKCJA O MNIE / Dlaczego ja? */
+[data-theme="dark"] .about h2 {
+    color: #0f172a !important;
+}
+
+[data-theme="dark"] .about p {
+    color: #1f2937 !important;
+    opacity: 1;
+}
+
+/* 1b. SEKCJA PORTFOLIO / Wspieramy i Polecamy */
+[data-theme="dark"] .logo-header,
+[data-theme="dark"] .portfolio h2,
+[data-theme="dark"] #global-trusted-logos h2 {
+    color: #0f172a !important;
+}
+
+/* 2. SEKCJA USŁUGI & KARTY */
+[data-theme="dark"] .card,
+[data-theme="dark"] .solution-card {
+    background: var(--card-inner, linear-gradient(145deg, #100860, #0a0440)) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="dark"] .card p,
+[data-theme="dark"] .solution-card p {
+    color: #e2e8f0 !important;
+}
+
+/* 3. SEKCJA STATYSTYKI */
+[data-theme="dark"] .stat-item p {
+    color: #cbd5e1 !important;
+}
+
+/* 4. SEKCJA PAKIETY CENOWE */
+[data-theme="dark"] .pricing-section h2,
+[data-theme="dark"] #pakiety h2 {
+    color: #0f172a !important; /* Ciemny / czarny nagłówek w Dark Mode */
+}
+
+[data-theme="dark"] .pricing-card {
+    background: var(--card-inner, linear-gradient(145deg, #100860, #0a0440)) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .pricing-card ul li {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .pricing-card ul li strong {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .pricing-price {
+    color: #cbd5e1 !important;
+}
+
+/* 5. FLAGOWY PAKIET VIP ALL-IN-ONE */
+[data-theme="dark"] .vip-card {
+    background: linear-gradient(145deg, #0f0a33, rgba(245, 158, 11, 0.22)) !important;
+    border-color: #fbbf24 !important;
+    box-shadow: 0 12px 35px rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="dark"] .vip-card ul li {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .vip-card ul li strong {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .vip-card .pricing-price strong {
+    color: #fbbf24 !important;
+}
+
+/* 6. SEKCJA GWARANCJI / Dlaczego warto współpracować? */
+[data-theme="dark"] .guarantee-section h2 {
+    color: #0f172a !important; /* Ciemny / czarny nagłówek w Dark Mode */
+}
+
+[data-theme="dark"] .guarantee-section {
+    background: transparent;
+}
+
+[data-theme="dark"] .guarantee-card {
+    background: var(--card-inner, linear-gradient(145deg, #100860, #0a0440)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .guarantee-card h3 {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .guarantee-card p {
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .guarantee-icon {
+    color: var(--accent, #34d399) !important;
+}
+
+/* 7. SEKCJA PROCES WSPÓŁPRACY */
+[data-theme="dark"] .process-step {
+    background: var(--card-inner, linear-gradient(145deg, #100860, #0a0440)) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="dark"] .process-text {
+    color: #ffffff !important;
+}
+
+/* 8. SEKCJA OPINII KLIENTÓW (Co mówią o naszej współpracy?) */
+[data-theme="dark"] .section-label {
+    color: #0f172a !important; /* Ciemny / czarny tekst etykiety "Opinie klientów" */
+}
+
+[data-theme="dark"] .testimonials-section h2,
+[data-theme="dark"] #opinie h2 {
+    color: #0f172a !important; /* Ciemny / czarny nagłówek "Co mówią o naszej współpracy?" */
+}
+
+[data-theme="dark"] .testimonials-section {
+    background: rgba(16, 185, 129, 0.03);
+}
+
+[data-theme="dark"] .testimonials-subtitle {
+    color: #1f2937 !important; /* Ciemny tekst podtytułu opinii */
+}
+
+[data-theme="dark"] .testimonial-card {
+    background: linear-gradient(145deg, #0e0938, #070424) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .testimonial-text {
+    color: #f3f4f6 !important;
+    opacity: 1 !important;
+}
+
+[data-theme="dark"] .testimonial-author strong {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .testimonial-author span {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .slider-btn {
+    background: #0e0938 !important;
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+[data-theme="dark"] .slider-btn:hover {
+    background: var(--accent) !important;
+    color: #02010a !important;
+}
+
+/* 9. SEKCJA FAQ */
+[data-theme="dark"] .faq-section h2,
+[data-theme="dark"] #faq h2 {
+    color: #0f172a !important; /* Ciemny / czarny nagłówek "Najczęstsze pytania" */
+}
+
+[data-theme="dark"] .faq-item {
+    background: linear-gradient(145deg, #0e0938, #070424) !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme="dark"] .faq-question {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .faq-answer p {
+    color: #e2e8f0 !important;
+}
+
+/* 10. SEKCJA KONTAKT I FORMULARZ */
+[data-theme="dark"] .contact {
+    background: #02010a !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-form textarea {
+    background: #0e0938 !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .form-consent {
+    color: #cbd5e1 !important;
+}
+
+/* 11. STOPKA */
+[data-theme="dark"] footer {
+    background: #02010a !important;
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+    color: #94a3b8 !important;
 }

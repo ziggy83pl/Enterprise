@@ -32,9 +32,9 @@
       "serviceType": "Tworzenie stron internetowych",
       "offers": [
         {"@type": "Offer","name": "Pakiet START","description": "Strona wizytówka do 3 sekcji, formularz kontaktowy, podstawowe SEO, realizacja do 72h","price": "380","priceCurrency": "PLN"},
-        {"@type": "Offer","name": "Pakiet BIZNES","description": "Rozbudowana wizytówka, sekcja usług, galeria, optymalizacja SEO, pomoc po wdrożeniu"},
-        {"@type": "Offer","name": "Pakiet PRO","description": "Indywidualny projekt, animacje, wersja angielska, priorytetowa realizacja"},
-        {"@type": "Offer","name": "Pakiet VIP ALL-IN-ONE","description": "Kompleksowa witryna multi-page, galeria z efektami, projekt Logo, Favicon, serwer/domena, GSC i pełne SEO"}
+        {"@type": "Offer","name": "Pakiet BIZNES","description": "Rozbudowana wizytówka, sekcja usług, galeria, optymalizacja SEO, pomoc po wdrożeniu. Cena od 850 zł.","price": "850","priceCurrency": "PLN"},
+        {"@type": "Offer","name": "Pakiet PRO","description": "Indywidualny projekt, animacje, wersja angielska, priorytetowa realizacja. Cena od 1500 zł.","price": "1500","priceCurrency": "PLN"},
+        {"@type": "Offer","name": "Pakiet VIP ALL-IN-ONE","description": "Kompleksowa witryna multi-page, galeria z efektami, projekt Logo, Favicon, serwer/domena, GSC i pełne SEO. Cena od 2400 zł.","price": "2400","priceCurrency": "PLN"}
       ]
     }
     </script>
@@ -43,7 +43,7 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type": "Question","name": "Ile kosztuje strona internetowa dla małej firmy?","acceptedAnswer": {"@type": "Answer","text": "Pakiet START zaczyna się od 380 zł i obejmuje stronę wizytówkę do 3 sekcji z formularzem kontaktowym i podstawowym SEO. Pakiety BIZNES i PRO wyceniane są indywidualnie — napisz do mnie, a przygotuję bezpłatną wycenę w ciągu 24h."}},
+        {"@type": "Question","name": "Ile kosztuje strona internetowa dla małej firmy?","acceptedAnswer": {"@type": "Answer","text": "Ceny pakietów zaczynają się od: START — 380 zł, BIZNES — 850 zł, PRO — 1500 zł i VIP ALL-IN-ONE — 2400 zł. Kalkulator pokazuje szacunkową cenę; końcowa wycena zależy od zakresu projektu i wybranych dodatków. Napisz do mnie po bezpłatną wycenę."}},
         {"@type": "Question","name": "Jak długo trwa realizacja strony internetowej?","acceptedAnswer": {"@type": "Answer","text": "Standardowa realizacja trwa 48–72 godziny od momentu dostarczenia materiałów. W pakiecie PRO dostępna jest priorytetowa realizacja."}},
         {"@type": "Question","name": "Czy strona wymaga abonamentu lub opłat miesięcznych?","acceptedAnswer": {"@type": "Answer","text": "Nie. To jednorazowy koszt — płacisz raz i strona jest Twoja na zawsze. Hostowanie na platformach typu Cloudflare Pages lub GitHub Pages jest bezpłatne."}},
         {"@type": "Question","name": "Czy strona będzie dobrze widoczna w Google?","acceptedAnswer": {"@type": "Answer","text": "Tak. Każda strona jest optymalizowana pod SEO: szybkie ładowanie, poprawna struktura nagłówków, meta tagi, Open Graph, dane strukturalne Schema.org i responsywność mobile-first."}},
@@ -79,8 +79,6 @@
             <button id="menu-toggle" class="menu-toggle" aria-label="Otwórz menu">☰</button>
             <div class="nav-links">
                 <button id="lang-toggle" class="btn-sm custom-tooltip" data-tooltip="Zmień język / Change language">🇺🇸 EN</button>
-                <button id="bg-change-btn" class="btn-sm custom-tooltip" data-tooltip="Zmień tło / Change background">🎨</button>
-                <button id="reset-btn" class="btn-sm custom-tooltip" data-tooltip="Resetuj ustawienia / Reset settings">↺</button>
                 <button id="theme-toggle" class="btn-sm">🌙</button>
                 <a href="#pakiety" class="btn-sm">Pakiety</a>
                 <button id="nav-share-btn" class="btn-sm share-trigger">Udostępnij</button>
@@ -97,7 +95,7 @@
                     <li>Optymalizacja pod Google</li>
                     <li>Realizacja w 48–72h</li>
                 </ul>
-                <a href="#uslugi" class="btn-main" data-lang="hero_btn">Zamów bezpłatną wycenę</a>
+                <a href="#kontakt" class="btn-main" data-lang="hero_btn">Zamów bezpłatną wycenę</a>
                 <button id="hero-share-btn" class="btn-glass share-trigger">Udostępnij</button>
             </div>
             <div class="hero-side-text fade-in-section slide-in-right">
@@ -158,6 +156,7 @@
 <section id="pakiety" class="pricing-section fade-in-section">
     <div class="container">
         <h2>Pakiety dopasowane do Twoich potrzeb</h2>
+        <p class="pricing-note">Podane kwoty to ceny początkowe. Kalkulator pokazuje szacunkowy koszt, a ostateczna cena zależy od zakresu projektu i wybranych dodatków.</p>
         <div class="pricing-grid">
             <div class="pricing-card">
                 <div class="pricing-title">START</div>
@@ -174,7 +173,7 @@
             <div class="pricing-card featured">
                 <div class="pricing-badge">Najczęściej wybierany</div>
                 <div class="pricing-title">BIZNES</div>
-                <div class="pricing-price">cena <strong>do uzgodnienia</strong></div>
+                <div class="pricing-price">od <strong>850 zł</strong></div>
                 <ul>
                     <li>Rozbudowana wizytówka</li>
                     <li>Sekcja usług</li>
@@ -186,7 +185,7 @@
             </div>
             <div class="pricing-card">
                 <div class="pricing-title">PRO</div>
-                <div class="pricing-price">cena <strong>do uzgodnienia</strong></div>
+                <div class="pricing-price">od <strong>1500 zł</strong></div>
                 <ul>
                     <li>Indywidualny projekt graficzny</li>
                     <li>Animacje i interaktywność</li>
@@ -200,7 +199,7 @@
                 <div class="pricing-badge vip-badge">⭐ Kompleksowa Witryna ⭐</div>
                 <div class="vip-card-header">
                     <div class="pricing-title">VIP ALL-IN-ONE</div>
-                    <div class="pricing-price">cena <strong>do uzgodnienia</strong></div>
+                    <div class="pricing-price">od <strong>2400 zł</strong></div>
                     <a href="#kontakt" class="btn-pricing btn-vip">Zamów pakiet VIP</a>
                 </div>
                 <div class="vip-card-body">
@@ -577,7 +576,7 @@
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>Pakiet <strong>START</strong> zaczyna się od <strong>380 zł</strong> i obejmuje stronę wizytówkę do 3 sekcji z formularzem kontaktowym i podstawowym SEO. Pakiety <strong>BIZNES</strong> i <strong>PRO</strong> wyceniane są indywidualnie — napisz do mnie, a przygotuję bezpłatną wycenę w ciągu 24h.</p>
+                    <p>Ceny pakietów zaczynają się od: <strong>START — 380 zł</strong>, <strong>BIZNES — 850 zł</strong>, <strong>PRO — 1500 zł</strong> i <strong>VIP ALL-IN-ONE — 2400 zł</strong>. Kalkulator pokazuje szacunkową cenę; ostateczna wycena zależy od zakresu projektu i wybranych dodatków. Napisz do mnie po bezpłatną wycenę.</p>
                 </div>
             </div>
             <div class="faq-item">

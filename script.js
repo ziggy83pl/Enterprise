@@ -417,57 +417,6 @@ langToggle.addEventListener('click', () => {
     setLanguage(currentLang === 'pl' ? 'en' : 'pl');
 });
 
-// 11. Zmiana tła (Background Changer)
-const bgChangeBtn = document.getElementById('bg-change-btn');
-const bgColors = ['var(--bg)', '#f0f4f8', '#eef2f3', '#fff0f5', '#f5f5dc', '#e0f7fa', '#f3e5f5', '#e8f5e9', '#fff3e0']; // Lista kolorów
-let bgIndex = parseInt(localStorage.getItem('bgIndex')) || 0;
-
-// Funkcja aplikująca tło
-function applyBackground(index) {
-    if (index > 0) {
-        document.documentElement.style.setProperty('--bg', bgColors[index]);
-        document.body.style.backgroundColor = bgColors[index];
-    } else {
-        // Reset do domyślnego (zależnego od motywu dark/light)
-        document.documentElement.style.removeProperty('--bg');
-        document.body.style.backgroundColor = '';
-    }
-}
-
-// Zastosuj zapisane tło na starcie
-applyBackground(bgIndex);
-
-bgChangeBtn.addEventListener('click', () => {
-    bgIndex = (bgIndex + 1) % bgColors.length;
-    localStorage.setItem('bgIndex', bgIndex);
-    applyBackground(bgIndex);
-});
-
-// 12. Reset Ustawień (Factory Reset)
-const resetBtn = document.getElementById('reset-btn');
-resetBtn.addEventListener('click', () => {
-    // 1. Reset Języka
-    localStorage.removeItem('lang');
-    currentLang = 'pl';
-    setLanguage('pl');
-
-    // 2. Reset Motywu
-    localStorage.removeItem('theme');
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    if (systemTheme === 'dark') {
-        htmlElement.setAttribute('data-theme', 'dark');
-        themeToggle.textContent = '☀️';
-    } else {
-        htmlElement.removeAttribute('data-theme');
-        themeToggle.textContent = '🌙';
-    }
-
-    // 3. Reset Tła
-    localStorage.removeItem('bgIndex');
-    bgIndex = 0;
-    applyBackground(0);
-});
-
 // 13. Rejestracja Service Workera (PWA)
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
@@ -688,25 +637,79 @@ const testimNext = document.getElementById('testim-next');
 
 if (testimTrack && testimPrev && testimNext) {
     const cardStep = 360;
+    const autoScrollDelay = 4500;
+    const resumeDelay = 2500;
+    let autoScrollTimer;
+    let resumeTimer;
+    let isMouseOver = false;
+    let isPointerDown = false;
 
-    testimNext.addEventListener('click', () => {
-        testimTrack.scrollBy({ left: cardStep, behavior: 'smooth' });
-    });
-
-    testimPrev.addEventListener('click', () => {
-        testimTrack.scrollBy({ left: -cardStep, behavior: 'smooth' });
-    });
-
-    // Automatyczne płynne przewijanie co 4.5 sekundy
-    let testimAutoScroll = setInterval(() => {
+    function advanceTestimonials() {
         if (testimTrack.scrollLeft + testimTrack.clientWidth >= testimTrack.scrollWidth - 15) {
             testimTrack.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
             testimTrack.scrollBy({ left: cardStep, behavior: 'smooth' });
         }
-    }, 4500);
+    }
 
-    testimTrack.addEventListener('mouseenter', () => clearInterval(testimAutoScroll));
+    function scheduleAutoScroll(delay = autoScrollDelay) {
+        clearTimeout(autoScrollTimer);
+        autoScrollTimer = setTimeout(() => {
+            advanceTestimonials();
+            scheduleAutoScroll();
+        }, delay);
+    }
+
+    function pauseAutoScroll() {
+        clearTimeout(autoScrollTimer);
+        clearTimeout(resumeTimer);
+    }
+
+    function resumeAutoScroll() {
+        if (isMouseOver || isPointerDown) return;
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+            advanceTestimonials();
+            scheduleAutoScroll();
+        }, resumeDelay);
+    }
+
+    testimNext.addEventListener('click', () => {
+        pauseAutoScroll();
+        testimTrack.scrollBy({ left: cardStep, behavior: 'smooth' });
+        resumeAutoScroll();
+    });
+
+    testimPrev.addEventListener('click', () => {
+        pauseAutoScroll();
+        testimTrack.scrollBy({ left: -cardStep, behavior: 'smooth' });
+        resumeAutoScroll();
+    });
+
+    testimTrack.addEventListener('pointerdown', () => {
+        isPointerDown = true;
+        pauseAutoScroll();
+    });
+    const releasePointer = () => {
+        isPointerDown = false;
+        resumeAutoScroll();
+    };
+    testimTrack.addEventListener('pointerup', releasePointer);
+    testimTrack.addEventListener('pointercancel', releasePointer);
+    testimTrack.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse') {
+            isMouseOver = true;
+            pauseAutoScroll();
+        }
+    });
+    testimTrack.addEventListener('pointerleave', (event) => {
+        if (event.pointerType === 'mouse') {
+            isMouseOver = false;
+            resumeAutoScroll();
+        }
+    });
+
+    scheduleAutoScroll();
 }
 
 // 18. Dynamiczna obsługa przycisku WhatsApp (przenoszenie treści formularza/wyceny)
